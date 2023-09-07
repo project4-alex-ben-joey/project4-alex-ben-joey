@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 
 function App() {
+  const [data, setData] = useState([]);
 
   // Calling the api data with axios
   useEffect(() => {
@@ -15,17 +16,39 @@ function App() {
       params: {
         apikey: apiKey,
         classificationName: "Music",
-        keyword: "beyonce",
+        keyword: "duran duran",
       },
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
-      console.log(res.data);
+      setData(res.data._embedded.events)
+      console.log(res.data._embedded.events[0]._embedded.venues[0].name);
     })
   }, [])
 
   return (
     <>
-
+      <div>
+        {/* Mapping over the data array and checking to see how to get all the info */}
+        {/* Will likely change the structure to an unordered list */}
+        {data.map((event) => (
+          <>
+            <p key={event.id}>Title: {event.name}</p>
+            {event.images.length > 0 && (
+              <img src={event.images[0].url} alt={data.name} />
+            )}
+            <p>{event.dates.start.localDate}</p>
+            {event.priceRanges && event.priceRanges.length > 0 ? (
+              <>
+                <p>Min price: {event.priceRanges[0].min}</p>
+                <p>Max price: {event.priceRanges[0].max}</p>
+              </>
+            ) : (
+              <p>Price information not available</p>
+            )}
+            <p>Location: {event._embedded.venues[0].name}</p>
+          </>
+        ))}
+      </div>
     </>
   )
 }
