@@ -67,3 +67,39 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* ---------------------------above is vite default------------------------------- */
+li {
+  list-style: none;
+}
+
+.results {
+  border: 1px solid black;
+  margin-bottom: 20px;
+  max-width: 30vw;
+}
+
+.eventName {
+  font-size: 25px;
+}
+
+.eventImg {
+/* look into constraining img to box */
+max-width: 100%;
+}
+
+.eventDate {
+  font-style: italic;
+}
+
+.minPrice {
+
+}
+
+.maxPrice {
+
+}
+
+.eventLocation {
+  font-weight: bold;
+}

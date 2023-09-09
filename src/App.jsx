@@ -16,7 +16,7 @@ function App() {
       params: {
         apikey: apiKey,
         classificationName: "Music",
-        keyword: "duran duran",
+        keyword: "Duran Duran",
       },
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
@@ -29,25 +29,26 @@ function App() {
     <>
       <div>
         {/* Mapping over the data array and checking to see how to get all the info */}
-        {/* Will likely change the structure to an unordered list */}
+        <ul>
         {data.map((event) => (
-          <>
-            <p key={event.id}>Title: {event.name}</p>
+          <li key={event.id} className='results'>
+            <p className='eventName'>Title: {event.name}</p>
             {event.images.length > 0 && (
-              <img src={event.images[0].url} alt={data.name} />
+              <img src={event.images[0].url} alt={data.name} className='eventImg' />
             )}
-            <p>{event.dates.start.localDate}</p>
+            <p className='eventDate'>{event.dates.start.localDate}</p>
             {event.priceRanges && event.priceRanges.length > 0 ? (
               <>
-                <p>Min price: {event.priceRanges[0].min}</p>
-                <p>Max price: {event.priceRanges[0].max}</p>
+                <p className='minPrice'>Min price: {event.priceRanges[0].min}</p>
+                <p className='maxPrice'>Max price: {event.priceRanges[0].max}</p>
               </>
             ) : (
               <p>Price information not available</p>
             )}
-            <p>Location: {event._embedded.venues[0].name}</p>
-          </>
+            <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
+          </li>
         ))}
+        </ul>
       </div>
     </>
   )
