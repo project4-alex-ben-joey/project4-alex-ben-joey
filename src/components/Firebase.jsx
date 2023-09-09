@@ -5,9 +5,9 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    // Save apikey in a .env file!!
   apiKey: "AIzaSyD9LtDEQ-SvDs1G4wyAMXFXFrETRU4AfTk",
   authDomain: "ticketmaster-app-8d9b2.firebaseapp.com",
+  databaseURL: "https://ticketmaster-app-8d9b2-default-rtdb.firebaseio.com",
   projectId: "ticketmaster-app-8d9b2",
   storageBucket: "ticketmaster-app-8d9b2.appspot.com",
   messagingSenderId: "979315215651",
