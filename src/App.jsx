@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, onValue, push, set } from 'firebase/database';
 import app from './components/Firebase';
 
 function App() {
   const [data, setData] = useState([]);
   const [listName, setListName] = useState('');
   const [budget, setBudget] = useState('');
+  const [selectedConcerts, setSelectedConcerts] = useState([]);
+  const [listId, setListId] = useState('');
 
   // Calling the api data with axios
   useEffect(() => {
@@ -43,28 +45,57 @@ function App() {
     const listNameAndBudget = {
       name: listName,
       budget: budget,
-    }
+    };
 
     console.log(listNameAndBudget);
-    // Send form name and budget to firebase
-    const database = getDatabase(app);
-    const dbRef = ref(database);
 
+    // Send form name and budget to Firebase and get the generated list ID
+    const database = getDatabase(app);
+    const listRef = ref(database, 'lists');
 
     try {
-      push(dbRef, listNameAndBudget);
+      const newListRef = push(listRef, listNameAndBudget);
+      const listId = newListRef.key; // Get the generated list ID
+      setListId(listId)
       console.log('Successful push of:', listNameAndBudget);
       setListName('');
       setBudget('');
+
+      const concertsRef = ref(database, `lists/${listId}/concerts`);
+      set(concertsRef, {});
+
+      // Call the function to add selected concerts to Firebase
+      addConcertsToFirebase(listId);
     } catch (error) {
       console.error('Error pushing data to Firebase:', error);
     }
+  };
 
-    // Add concerts to firebase list
-  }
+  const addConcertsToFirebase = (listId, events) => {
+    // Add selected concerts to Firebase under the same listId
+    const database = getDatabase(app);
+    const concertsRef = ref(database, `lists/${listId}/concerts`);
+
+      try {
+        push(concertsRef, events);
+        console.log('Successful push of concert:', events);
+      } catch (error) {
+        console.error('Error pushing concert data to Firebase:', error);
+      }
+
+    // Clear the selectedConcerts state after adding to Firebase
+    setSelectedConcerts([]);
+  };
   
-  const handleOnAdd = (id) => {
-    console.log(`added concert ${id}`);
+  const handleOnAdd = (event) => {
+    if (!selectedConcerts.some((concert) => concert.id === event.id)) {
+      setSelectedConcerts([...selectedConcerts, event]);
+      console.log(selectedConcerts);
+
+      addConcertsToFirebase(listId, event);
+    } else {
+      console.log(`Concert ${event.name} is already in the list!`)
+    }
   }
 
   return (
@@ -96,8 +127,8 @@ function App() {
           <button type='submit'>Submit</button>
         </form>
         {data.map((event) => (
-          <>
-            <p key={event.id}>Title: {event.name}</p>
+          <div key={event.id}>
+            <p >Title: {event.name}</p>
             {event.images.length > 0 && (
               <img src={event.images[0].url} alt={data.name} />
             )}
@@ -112,9 +143,9 @@ function App() {
             )}
             <p>Location: {event._embedded.venues[0].name}</p>
             {/* add button to each concert to send data to firebase list */}
-            <button onClick={() => handleOnAdd(event.id)}>Add to list</button>
+            <button onClick={() => handleOnAdd(event)}>Add to list</button>
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
-          </>
+          </div>
         ))}
       </div>
     </>
