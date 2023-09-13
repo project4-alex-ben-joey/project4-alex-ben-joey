@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
-import { getDatabase, ref, onValue, push, set } from 'firebase/database';
+import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
 import app from './components/Firebase';
 
 function App() {
   const [data, setData] = useState([]);
   const [listName, setListName] = useState('');
   const [budget, setBudget] = useState('');
-  const [selectedConcerts, setSelectedConcerts] = useState([]);
+  const [selectedConcerts, setSelectedConcerts] = useState({});
   const [listId, setListId] = useState('');
+  const [lists, setLists] = useState([]);
+
 
   // Calling the api data with axios
   useEffect(() => {
@@ -32,13 +34,22 @@ function App() {
 
     const database = getDatabase(app);
 
-    const dbRef = ref(database);
+    const listsRef = ref(database, 'lists');
 
-    onValue(dbRef, (res) => {
-      console.log(res.val());
+    onValue(listsRef, (snapshot) => {
+      const listsData = snapshot.val();
+      if (listsData) {
+        const listsArray = Object.keys(listsData).map((key) => ({
+          id: key,
+          ...listsData[key],
+        }))
+        setLists(listsArray);
+      }
     })
   }, [])
 
+  // handle the form submission for the list name and budget along with any concerts being added
+  // TO DO: need to handle error if user tries to enter a list with the same name!
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -53,6 +64,7 @@ function App() {
     const database = getDatabase(app);
     const listRef = ref(database, 'lists');
 
+    // make a new list reference and push the list name and budget
     try {
       const newListRef = push(listRef, listNameAndBudget);
       const listId = newListRef.key; // Get the generated list ID
@@ -61,6 +73,7 @@ function App() {
       setListName('');
       setBudget('');
 
+      // set the new concerts ref for any concerts added.
       const concertsRef = ref(database, `lists/${listId}/concerts`);
       set(concertsRef, {});
 
@@ -71,32 +84,137 @@ function App() {
     }
   };
 
+  // add selected concert to firebase
   const addConcertsToFirebase = (listId, events) => {
+      // Check if the event already exists in the selected concerts
+    if (selectedConcerts[events.id]) {
+      console.log(`Concert ${events.name} is already in list`)
+    }
+
     // Add selected concerts to Firebase under the same listId
     const database = getDatabase(app);
     const concertsRef = ref(database, `lists/${listId}/concerts`);
 
-      try {
-        push(concertsRef, events);
-        console.log('Successful push of concert:', events);
-      } catch (error) {
-        console.error('Error pushing concert data to Firebase:', error);
-      }
 
+    try {
+      push(concertsRef, events);
+      console.log('Success', events);
+    } catch (err) {
+      console.error('Error', err);
+    }
     // Clear the selectedConcerts state after adding to Firebase
-    setSelectedConcerts([]);
-  };
+    // setSelectedConcerts([]);
+  }
   
+  
+  // function to handle adding concerts to a specific list
+  // TO DO: handle error so user can't submit the same concert twice
   const handleOnAdd = (event) => {
-    if (!selectedConcerts.some((concert) => concert.id === event.id)) {
-      setSelectedConcerts([...selectedConcerts, event]);
-      console.log(selectedConcerts);
+    if (!selectedConcerts[event.id]) {
+      setSelectedConcerts((prevSelectedConcerts) => ({
+        ...prevSelectedConcerts,
+        [event.id]: event,
+      }));
 
       addConcertsToFirebase(listId, event);
     } else {
-      console.log(`Concert ${event.name} is already in the list!`)
+      console.log(`Concert ${event.name} is already in list`)
+    }
+  };
+
+
+
+  // Add this useEffect to log the updated state
+  useEffect(() => {
+    console.log('selected concerts', selectedConcerts);
+  }, [selectedConcerts]); // This will run whenever selectedConcerts changes
+
+
+  // Add this useEffect to populate selectedConcerts when the listId changes
+// Add this useEffect to populate selectedConcerts when the listId changes
+  useEffect(() => {
+    if (listId) {
+      const database = getDatabase(app);
+      const concertsRef = ref(database, `lists/${listId}/concerts`);
+
+      onValue(concertsRef, (snapshot) => {
+        const concertsData = snapshot.val();
+
+        if (concertsData) {
+          // Transform the concertsData object into an array of concert objects
+          const concertObjects = Object.values(concertsData);
+
+          // Create an object where each concert's ID is its key
+          const selectedConcertsObj = concertObjects.reduce((acc, concert) => {
+            acc[concert.id] = concert;
+            return acc;
+          }, {});
+
+          setSelectedConcerts(selectedConcertsObj);
+        } else {
+          // If there are no concerts in the list, set selectedConcerts to an empty object
+          setSelectedConcerts({});
+        }
+      });
+    } else {
+      // If no list is selected, set selectedConcerts to an empty object
+      setSelectedConcerts({});
+    }
+  }, [listId]);
+
+
+
+
+
+  // function to handle list selection
+  const handleListSelection = (selectedListId) => {
+    setListId(selectedListId);
+  }
+
+  // function to handle removing a concert from a list
+  const handleRemoveConcert = (concertId) => {
+    // Get the selected list by listId
+    const selectedList = lists.find((list) => list.id === listId);
+
+    if (selectedList) {
+      // creae a copy of concert list by spreading it
+      const updatedConcerts = { ...selectedList.concerts };
+
+      // remove concert by it's id
+      delete updatedConcerts[concertId];
+
+      // get the database and reference the concerts objectin firebase
+      const database = getDatabase(app);
+      const concertsRef = ref(database, `lists/${listId}/concerts`);
+
+      // try to set the new updated concerts to the firebase database else catch error
+      try {
+        set(concertsRef, updatedConcerts);
+        console.log(`Removed concert with ID ${concertId} from the list`);
+      } catch (err) {
+        console.error('Error removing concert:', err);
+      }
     }
   }
+
+  const handleDeleteList = (listId) => {
+    // if there's a list by using it's id, find it in firebase
+    if (listId) {
+      const database = getDatabase(app);
+      const listRef = ref(database, `lists/${listId}`);
+
+      // try to remove the list, if not possible console.error
+      try {
+        remove(listRef);
+        console.log(`Deleted list with ID ${listId} and associated concerts`);
+        setListId('');
+      } catch (err) {
+        console.error('Error deleting list:', err);
+      }
+    }
+  }
+
+  console.log(selectedConcerts);
 
   return (
     <>
@@ -126,6 +244,35 @@ function App() {
           />
           <button type='submit'>Submit</button>
         </form>
+        <select onChange={(e) => handleListSelection(e.target.value)}>
+          <option value="">Select a list</option>
+          {lists.map((list) => (
+            <option key={list.id} value={list.id}>
+              {list.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Display selected list's name, budget, and concerts */}
+        {listId && (
+          <div>
+            <p>Selected List: {lists.find((list) => list.id === listId)?.name}</p>
+            <p>Budget: {lists.find((list) => list.id === listId)?.budget}</p>
+            <p>Concerts: </p>
+            <ul>
+              {Object.keys(
+                lists.find((list) => list.id === listId)?.concerts || {}
+                ).map((concertId) => (
+                  <li key={concertId}>
+                    Name: {lists.find((list) => list.id === listId)?.concerts[concertId]?.name}
+                    <button onClick={() => handleRemoveConcert(concertId)}>Remove</button>
+                  </li>
+              ))}
+            </ul>
+            <button onClick={() => handleDeleteList(listId)}>Delete List</button>
+          </div>
+        )}
+
         {data.map((event) => (
           <div key={event.id}>
             <p >Title: {event.name}</p>
