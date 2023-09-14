@@ -4,6 +4,8 @@ import axios from 'axios'
 
 function App() {
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); //default for now, switch after
+  const [dateQuery, setDateQuery] = useState('');//for setting date instead
 
   // Calling the api data with axios
   useEffect(() => {
@@ -16,21 +18,58 @@ function App() {
       params: {
         apikey: apiKey,
         classificationName: "Music",
-        keyword: "Duran Duran",
+        keyword: searchQuery,
+        date: dateQuery,
       },
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
-      setData(res.data._embedded.events)
+      setData(res.data._embedded.events);
       console.log(res.data._embedded.events[0]._embedded.venues[0].name);
+      //remove this console log eventually
     })
-  }, [])
+  }, [searchQuery, dateQuery]); // this will refetch data when a search query is made
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleDateInputChange = (e) => {
+    setDateQuery(e.target.value);
+  };
 
   return (
-    <>
-      <div>
+    
+      <div className='wholePage'>
         {/* Mapping over the data array and checking to see how to get all the info */}
+        <div className='section1'>
+          <div>
+            <div>
+              <p>Who do you want to see?</p>
+            </div>
+            <input
+              type='text'
+              placeholder='Search for stuff'
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+          </div>
+          <div className='orHighlite'><p>OR</p></div>
+          <div>
+            <div>
+              <p>When?</p>
+            </div>
+            <input
+              type='date'
+              placeholder='01/01/2023'
+              value={dateQuery}
+              onChange={handleDateInputChange}
+            />
+          </div>
+        </div>
+        {/* fix input / needs to link to date data */}
+
         <ul>
-        {data.map((event) => (
+        {data.slice(0, 5).map((event) => (
           <li key={event.id} className='results'>
             <p className='eventName'>Title: {event.name}</p>
             {event.images.length > 0 && (
@@ -50,7 +89,7 @@ function App() {
         ))}
         </ul>
       </div>
-    </>
+    
   )
 }
 

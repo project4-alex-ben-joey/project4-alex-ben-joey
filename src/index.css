@@ -69,6 +69,26 @@ button:focus-visible {
 }
 
 /* ---------------------------above is vite default------------------------------- */
+
+/* ---------------------------styles------------------------------- */
+/* font-family: 'Maitree', serif;
+normal at weight 400
+bold at weight 700
+to be to be used  
+
+colors:
+#DBF0EF -- light teal
+#97DAE8 -- light blue
+#C0C8F0 -- light purple
+
+bonus colors put here */
+
+*{
+  font-family: 'Maitree', serif;
+}
+
+/* ---------------------------styles------------------------------- */
+
 li {
   list-style: none;
 }
@@ -102,4 +122,37 @@ max-width: 100%;
 
 .eventLocation {
   font-weight: bold;
+}
+
+
+
+.flexSearchContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+
+.orHighlite{
+  background-color:#C0C8F0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.orHighlite p{
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+.section1 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
 }

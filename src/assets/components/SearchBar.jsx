@@ -1,12 +1,12 @@
 import React from "react";
 
-const SearchBar = {
-    return(
+// const SearchBar = {
+//     return(
 
 
 
 
-    )
-}
+//     )
+// }
 
-export default SearchBar;
+// export default SearchBar;
