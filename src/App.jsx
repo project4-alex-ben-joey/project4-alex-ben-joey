@@ -34,7 +34,31 @@ function App() {
   };
 
   const handleDateInputChange = (e) => {
+    const selectedDate = e.target.value;
     setDateQuery(e.target.value);
+    initiateSearch(selectedDate);
+  };
+
+  const initiateSearch = (selectedDate) => {
+    const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
+    axios({
+      url: 'https://app.ticketmaster.com/discovery/v2/events.json',
+      method: 'GET',
+      dataResponse: 'json',
+      params: {
+        apikey: apiKey,
+        classificationName: 'Music',
+        keyword: searchQuery,
+        date: selectedDate,
+      },
+    })
+      .then((res) => {
+        setData(res.data._embedded.events);
+        console.log(res.data._embedded.events[0]._embedded.venues[0].name);
+      })
+      .catch((error) => {
+        console.error('Error getting that date information', error);
+      });
   };
 
   return (
