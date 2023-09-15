@@ -40,3 +40,121 @@
 .read-the-docs {
   color: #888;
 }
+
+/* CSS GOES HERE */
+
+/* colors:
+#DBF0EF -- light teal
+#97DAE8 -- light blue
+#C0C8F0 -- light purple
+
+bonus colors put here */
+
+* {font-family: 'Maitree', serif;
+  font-weight: 400;}
+
+body {
+  background-color: #aaffff;
+}
+
+h1, h2 {
+  text-decoration: underline;
+}
+
+h2 {
+  border: 2px solid black;
+  padding: 0 20px 0 5px;
+  background-color: rebeccapurple;
+  text-align: left;
+}
+
+div.concertflex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* For div.concertflex, figure out how to match the image correctly. */
+
+.concertflex {
+  border: 2px solid black;
+  width: 42.5%;
+}
+
+.concertflex label {
+  display: block;
+  border: 2px solid black;
+}
+
+.concertflex input {
+  display: block;
+  border: 2px solid black;
+}
+
+.inputcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  margin: 10px 0;
+}
+
+/* Border Radius goes here. */
+.inputheader {
+  
+}
+
+p.or {
+  border: 2px solid black;
+  width: 5%;
+  border-radius: 50%;
+  margin: 0;
+}
+
+section.flexcontainer {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid black;
+  width: 1080px;
+  max-width: 98%;
+}
+
+li.myshowsflexcontainer {
+  border: 2px solid black;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.myshowsinfoflex, div.moneyflex {
+  display: flex;
+}
+
+li p {
+  background-color: yellow;
+  border: 2px solid black;
+}
+
+/* For the dates on Upcoming Shows, use position of absolute. */
+
+/* This removes the arrows from the input+label box for Chrome, Safari, Edge, Opera and Firefox. */
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* I need to figure out why this is not working */
+
+.savelistflex {
+  display: flex;
+}
+
+p.purplebox {
+  border: 2px solid black;
+  padding: 0 20px 0 5px;
+  background-color: rebeccapurple;
+}
