@@ -93,7 +93,7 @@ const handleDateSearch = () => {
         <div className='section1'>
           <div>
             <div>
-              <p>Who do you want to see?</p>
+              <p className='inputText'>Who do you want to see?</p>
             </div>
             <input
               type='text'
@@ -105,7 +105,7 @@ const handleDateSearch = () => {
           <div className='orHighlite'><p>OR</p></div>
           <div>
             <div>
-              <p>When?</p>
+              <p className='inputText'>When?</p>
             </div>
             <input
               type='date'
@@ -121,13 +121,28 @@ const handleDateSearch = () => {
 
         {data !== null && (
         <ul>
+          <div className='upcomingShows'>
+            <p>Upcoming Shows</p>
+          </div>
+    
         {data.slice(0, 5).map((event) => (
           <li key={event.id} className='results'>
-            <p className='eventName'>Title: {event.name}</p>
+            
+    {/* Image */} 
             {event.images.length > 0 && (
-              <img src={event.images[0].url} alt={data.name} className='eventImg' />
+              <div className='imgContainer'>
+                <img src={event.images[0].url} alt={data.name} className='eventImg' />
+              </div>
             )}
-            <p className='eventDate'>{event.dates.start.localDate}</p>
+    <div>
+    {/* Title */}
+            <p className='eventName'>{event.name}</p>
+    {/* Location */}
+            <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
+
+
+
+    {/* Price */}
             {event.priceRanges && event.priceRanges.length > 0 ? (
               <>
                 <p className='minPrice'>Min price: {event.priceRanges[0].min}</p>
@@ -136,7 +151,13 @@ const handleDateSearch = () => {
             ) : (
               <p>Price information not available</p>
             )}
-            <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
+    </div>
+
+    {/* Date */}
+              <div className='eventContainer'>
+                <p className='eventDate'>{event.dates.start.localDate}</p>
+              </div>
+
           </li>
         ))}
         </ul>

@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   line-height: 1.5;
   font-weight: 400;
 
@@ -31,10 +31,10 @@ body {
   min-height: 100vh;
 }
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
 button {
   border-radius: 8px;
@@ -85,9 +85,15 @@ bonus colors put here */
 
 *{
   font-family: 'Maitree', serif;
+  font-weight: 400;
 }
 
 /* ---------------------------styles------------------------------- */
+ul {
+  margin: 0px;
+  margin-top: 10px;
+  padding: 0px;
+}
 
 li {
   list-style: none;
@@ -101,6 +107,7 @@ li {
 
 .eventName {
   font-size: 25px;
+  font-weight: 700;
 }
 
 .eventImg {
@@ -132,6 +139,9 @@ max-width: 100%;
   gap: 5px;
 }
 
+.inputText{
+  margin: 0 auto;
+}
 
 .orHighlite{
   background-color:#C0C8F0;
@@ -159,4 +169,47 @@ max-width: 100%;
   justify-content: space-evenly;
   align-items: center;
 
+}
+
+.upcomingShows {
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
+
+  margin-bottom: 5px;
+}
+
+.upcomingShows p{
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 32px;
+  font-weight:700;
+}
+
+/* Section 2 Styling */
+
+li {
+  display: flex;
+  
+}
+
+.imgContainer {
+  align-items: left;
+  width: 30%;
+  height: 100%;
+  margin-left: 10px;
+
+
+}
+
+.eventContainer {
+  border: 1px solid black;
+  background-color: #C0C8F0;
+
+}
+
+.eventDate {
+  margin: 0px;
+  padding: 0px;
 }
