@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 
+// ~~~~~~~~~~~~~~~~~~~~~~
+
 function App() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); //default for now, switch after
   const [dateQuery, setDateQuery] = useState('');//for setting date instead
 
   // Calling the api data with axios
   useEffect(() => {
+    if (searchQuery || dateQuery) {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`
     axios({
       url: 'https://app.ticketmaster.com/discovery/v2/events.json',
@@ -19,38 +22,60 @@ function App() {
         apikey: apiKey,
         classificationName: "Music",
         keyword: searchQuery,
-        date: dateQuery,
+        localStartDateTime: `${dateQuery}T00:00:00,${dateQuery}T23:59:59`,
+        // startEndDateTime: `${dateQuery} `,
       },
-    }).then((res) => {
+    })
+      .then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
       setData(res.data._embedded.events);
       console.log(res.data._embedded.events[0]._embedded.venues[0].name);
       //remove this console log eventually
     })
+    .catch((error) => {
+      console.error('error getting data', error);
+    });
+  }
   }, [searchQuery, dateQuery]); // this will refetch data when a search query is made
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
+    initiateSearch(searchQuery); //added this line to make sure it INITIATES the search!!!
   };
+
+  //add one of the above for the searchQuery also???
 
   const handleDateInputChange = (e) => {
     const selectedDate = e.target.value;
     setDateQuery(e.target.value);
-    initiateSearch(selectedDate);
   };
+  //this code allows us to search another date without needing a clear button/state
+
+const handleDateSearch = () => {
+  initiateSearch(dateQuery);
+};
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
   const initiateSearch = (selectedDate) => {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
+    console.log(selectedDate)
+    const params = {
+      apikey: apiKey,
+      classificationName: 'Music',
+      keyword: searchQuery,
+      // dateTime: dateQuery,
+    };
+
+    if (selectedDate) {
+      params.date = selectedDate;
+    }
+
     axios({
       url: 'https://app.ticketmaster.com/discovery/v2/events.json',
       method: 'GET',
       dataResponse: 'json',
-      params: {
-        apikey: apiKey,
-        classificationName: 'Music',
-        keyword: searchQuery,
-        date: selectedDate,
-      },
+      params: params,
     })
       .then((res) => {
         setData(res.data._embedded.events);
@@ -84,14 +109,17 @@ function App() {
             </div>
             <input
               type='date'
-              placeholder='01/01/2023'
+              placeholder='2023/01/01' //placeholder not working but doenst matter
               value={dateQuery}
-              onChange={handleDateInputChange}
+              onChange={(e) => setDateQuery(e.target.value)}
             />
+            
+            {/* <button onClick={handleDateSearch}>Search Date</button> */}
           </div>
         </div>
         {/* fix input / needs to link to date data */}
 
+        {data !== null && (
         <ul>
         {data.slice(0, 5).map((event) => (
           <li key={event.id} className='results'>
@@ -112,6 +140,7 @@ function App() {
           </li>
         ))}
         </ul>
+        )}
       </div>
     
   )
