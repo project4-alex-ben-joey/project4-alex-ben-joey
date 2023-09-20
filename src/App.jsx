@@ -6,17 +6,21 @@ import app from './components/Firebase';
 import { Routes, Link, Route } from 'react-router-dom';
 import PublishedLists from './components/PublishedLists';
 
+// ~~~~~~~~~~~~~~~~~~~~~~
+
 function App() {
-  const [data, setData] = useState([]);
   const [listName, setListName] = useState('');
   const [budget, setBudget] = useState('');
   const [selectedConcerts, setSelectedConcerts] = useState({});
   const [listId, setListId] = useState('');
   const [lists, setLists] = useState([]);
-
+  const [data, setData] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(''); //default for now, switch after
+  const [dateQuery, setDateQuery] = useState('');//for setting date instead
 
   // Calling the api data with axios
   useEffect(() => {
+    if (searchQuery || dateQuery) {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`
     axios({
       url: 'https://app.ticketmaster.com/discovery/v2/events.json',
@@ -26,14 +30,22 @@ function App() {
       params: {
         apikey: apiKey,
         classificationName: "Music",
-        keyword: "duran duran",
+        keyword: searchQuery,
+        localStartDateTime: `${dateQuery}T00:00:00,${dateQuery}T23:59:59`,
+        // startEndDateTime: `${dateQuery} `,
       },
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
-      setData(res.data._embedded.events)
+      setData(res.data._embedded.events);
       console.log(res.data._embedded.events[0]._embedded.venues[0].name);
+      //remove this console log eventually
     })
+    .catch((error) => {
+      console.error('error getting data', error);
+    });
+  }}, [searchQuery, dateQuery]) // this will refetch data when a search query is made
 
+  useEffect(() => {
     const database = getDatabase(app);
 
     const listsRef = ref(database, 'lists');
@@ -49,6 +61,54 @@ function App() {
       }
     })
   }, [])
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+    initiateSearch(searchQuery); //added this line to make sure it INITIATES the search!!!
+  };
+
+  //add one of the above for the searchQuery also???
+
+  const handleDateInputChange = (e) => {
+    const selectedDate = e.target.value;
+    setDateQuery(e.target.value);
+  };
+  //this code allows us to search another date without needing a clear button/state
+
+const handleDateSearch = () => {
+  initiateSearch(dateQuery);
+};
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  const initiateSearch = (selectedDate) => {
+    const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
+    console.log(selectedDate)
+    const params = {
+      apikey: apiKey,
+      classificationName: 'Music',
+      keyword: searchQuery,
+      // dateTime: dateQuery,
+    };
+
+    if (selectedDate) {
+      params.date = selectedDate;
+    }
+
+    axios({
+      url: 'https://app.ticketmaster.com/discovery/v2/events.json',
+      method: 'GET',
+      dataResponse: 'json',
+      params: params,
+    })
+      .then((res) => {
+        setData(res.data._embedded.events);
+        console.log(res.data._embedded.events[0]._embedded.venues[0].name);
+      })
+      .catch((error) => {
+        console.error('Error getting that date information', error);
+      });
+  };
 
   // handle the form submission for the list name and budget along with any concerts being added
   // TO DO: need to handle error if user tries to enter a list with the same name!
@@ -125,7 +185,6 @@ function App() {
   };
 
   // Add this useEffect to populate selectedConcerts when the listId changes
-// Add this useEffect to populate selectedConcerts when the listId changes
   useEffect(() => {
     if (listId) {
       const database = getDatabase(app);
@@ -233,7 +292,6 @@ function App() {
       <Routes>
         <Route path='/published-lists' element={ <PublishedLists /> } />
       </Routes>
-      <div>
         {/* Mapping over the data array and checking to see how to get all the info */}
         {/* Will likely change the structure to an unordered list */}
 
@@ -289,17 +347,68 @@ function App() {
           </div>
         )}
 
-        {data.map((event) => (
+        {/* {data.map((event) => (
           <div key={event.id}>
-            <p >Title: {event.name}</p>
+            <p >Title: {event.name}</p> */}
+    
+      <div className='wholePage'>
+        {/* rename this class, its only the app not the body */}
+        {/* Mapping over the data array and checking to see how to get all the info */}
+        <div className='section1'>
+          <div>
+            <div>
+              <p className='inputText'>Who do you want to see?</p>
+            </div>
+            <input
+              type='text'
+              placeholder='Search for stuff'
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+            />
+          </div>
+          <div className='orHighlite'><p>OR</p></div>
+          <div>
+            <div>
+              <p className='inputText'>When?</p>
+            </div>
+            <input
+              type='date'
+              placeholder='2023/01/01' //placeholder not working but doenst matter
+              value={dateQuery}
+              onChange={(e) => setDateQuery(e.target.value)}
+            />
+            
+            {/* <button onClick={handleDateSearch}>Search Date</button> */}
+          </div>
+        </div>
+        {/* fix input / needs to link to date data */}
+
+        {data !== null && (
+        <ul className='section2'>
+          <div className='upcomingShows'>
+            <p>Upcoming Shows</p>
+          </div>
+    
+        {data.slice(0, 5).map((event) => (
+          <>
+          <li key={event.id} className='results'>
+            
+    {/* Image */} 
             {event.images.length > 0 && (
-              <img src={event.images[0].url} alt={data.name} />
+              <div className='imgContainer'>
+                <img src={event.images[0].url} alt={data.name} className='eventImg' />
+              </div>
             )}
-            <p>{event.dates.start.localDate}</p>
+    <div className='concertInfo'>
+    {/* Title */}
+            <p className='eventName'>{event.name}</p>
+    {/* Location */}
+            <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
+    {/* Price */}
             {event.priceRanges && event.priceRanges.length > 0 ? (
               <>
-                <p>Min price: {event.priceRanges[0].min}</p>
-                <p>Max price: {event.priceRanges[0].max}</p>
+                <p className='minPrice'>Min price: {event.priceRanges[0].min}</p>
+                <p className='maxPrice'>Max price: {event.priceRanges[0].max}</p>
               </>
             ) : (
               <p>Price information not available</p>
@@ -308,11 +417,20 @@ function App() {
             {/* add button to each concert to send data to firebase list */}
             <button onClick={() => handleOnAdd(event)}>Add to list</button>
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
-          </div>
+    {/* Date */}
+              <div className='eventContainer'>
+                <p className='eventDate'>{event.dates.start.localDate}</p>
+              </div>
+    </div>
+          </li>
+        </>          
         ))}
-      </div>
-    </>
+
+        </ul>
+        )}
+        </div>
+      </>
   )
 }
 
-export default App
+export default App;
