@@ -89,6 +89,7 @@ const handleDateSearch = () => {
   return (
     
       <div className='wholePage'>
+        {/* rename this class, its only the app not the body */}
         {/* Mapping over the data array and checking to see how to get all the info */}
         <div className='section1'>
           <div>
@@ -120,12 +121,13 @@ const handleDateSearch = () => {
         {/* fix input / needs to link to date data */}
 
         {data !== null && (
-        <ul>
+        <ul className='section2'>
           <div className='upcomingShows'>
             <p>Upcoming Shows</p>
           </div>
     
         {data.slice(0, 5).map((event) => (
+          <>
           <li key={event.id} className='results'>
             
     {/* Image */} 
@@ -134,14 +136,11 @@ const handleDateSearch = () => {
                 <img src={event.images[0].url} alt={data.name} className='eventImg' />
               </div>
             )}
-    <div>
+    <div className='concertInfo'>
     {/* Title */}
             <p className='eventName'>{event.name}</p>
     {/* Location */}
             <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
-
-
-
     {/* Price */}
             {event.priceRanges && event.priceRanges.length > 0 ? (
               <>
@@ -151,15 +150,18 @@ const handleDateSearch = () => {
             ) : (
               <p>Price information not available</p>
             )}
-    </div>
-
     {/* Date */}
               <div className='eventContainer'>
                 <p className='eventDate'>{event.dates.start.localDate}</p>
               </div>
-
+    </div>
           </li>
+    {/* Clickable Save Icon */}
+    {/* <FontAwesomeIcon icon="fa-regular fa-guitar" />
+    <FontAwesomeIcon icon="fa-solid fa-guitar" /> */}
+        </>          
         ))}
+
         </ul>
         )}
       </div>
