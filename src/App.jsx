@@ -3,6 +3,8 @@ import './App.css'
 import axios from 'axios'
 import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
 import app from './components/Firebase';
+import { Routes, Link, Route } from 'react-router-dom';
+import PublishedLists from './components/PublishedLists';
 
 function App() {
   const [data, setData] = useState([]);
@@ -122,14 +124,6 @@ function App() {
     }
   };
 
-
-
-  // Add this useEffect to log the updated state
-  useEffect(() => {
-    console.log('selected concerts', selectedConcerts);
-  }, [selectedConcerts]); // This will run whenever selectedConcerts changes
-
-
   // Add this useEffect to populate selectedConcerts when the listId changes
 // Add this useEffect to populate selectedConcerts when the listId changes
   useEffect(() => {
@@ -161,10 +155,6 @@ function App() {
       setSelectedConcerts({});
     }
   }, [listId]);
-
-
-
-
 
   // function to handle list selection
   const handleListSelection = (selectedListId) => {
@@ -214,10 +204,35 @@ function App() {
     }
   }
 
+  const handlePublishList = (listId) => {
+    // Move the list from 'lists' to 'published-lists' in firebase
+    const database = getDatabase(app);
+    const sourceListRef = ref(database, `lists/${listId}`)
+    const publishedListRef = ref(database, `published-lists/${listId}`);
+
+    onValue(sourceListRef, (snapshot) => {
+      const listData = snapshot.val();
+      if(listData) {
+        // copy the list data to the published lists node
+        set(publishedListRef, listData);
+
+        // Delete the list from the source node
+        remove(sourceListRef);
+
+        // Optionally, you can update your local state to remove the list
+        setLists((prevLists) => prevLists.filter((list) => list.id === listId));
+      }
+    })
+  }
+
   console.log(selectedConcerts);
 
   return (
     <>
+      <Link to="/published-lists">Published Lists</Link>
+      <Routes>
+        <Route path='/published-lists' element={ <PublishedLists /> } />
+      </Routes>
       <div>
         {/* Mapping over the data array and checking to see how to get all the info */}
         {/* Will likely change the structure to an unordered list */}
@@ -270,6 +285,7 @@ function App() {
               ))}
             </ul>
             <button onClick={() => handleDeleteList(listId)}>Delete List</button>
+            <button onClick={() => handlePublishList(listId)}>Publish List</button>
           </div>
         )}
 
