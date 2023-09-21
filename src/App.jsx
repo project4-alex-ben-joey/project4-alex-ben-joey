@@ -5,6 +5,9 @@ import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database'
 import app from './components/Firebase';
 import { Routes, Link, Route } from 'react-router-dom';
 import PublishedLists from './components/PublishedLists';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGuitar } from '@fortawesome/free-solid-svg-icons';
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -292,6 +295,7 @@ const handleDateSearch = () => {
       <Routes>
         <Route path='/published-lists' element={ <PublishedLists /> } />
       </Routes>
+      <FontAwesomeIcon icon={faGuitar} />
         {/* Mapping over the data array and checking to see how to get all the info */}
         {/* Will likely change the structure to an unordered list */}
 
