@@ -37,7 +37,7 @@ body {
 } */
 
 button {
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -48,7 +48,9 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  /* border-color:#C0C8F0; */
+  background-color:#C0C8F0;
+  transition: 0.4s;
 }
 button:focus,
 button:focus-visible {
@@ -96,6 +98,7 @@ body{
 .upcomingShows{
   min-width: 200px;
 }
+/* I reference this class down below again, just have it here for order importantance */
 
 ul {
   margin: 0px;
@@ -263,6 +266,10 @@ li {
 
 /*  Published Lists */
 
+.publishedListsDiv{
+  border: 1px solid black;
+}
+
 .PLForm{
   
 }
@@ -272,5 +279,30 @@ li {
 }
 
 .PLButton{
-  
+  padding: 0px 5px;
+  border: 2px solid black;
+  border-radius: none;
+
 }
+
+
+
+/* 
+
+.upcomingShows {
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
+
+  margin-bottom: 5px;
+}
+
+.upcomingShows p{
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 32px;
+  font-weight:700;
+}
+
+*/

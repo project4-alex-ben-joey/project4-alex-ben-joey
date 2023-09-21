@@ -291,6 +291,7 @@ const handleDateSearch = () => {
 
   return (
     <>
+    <div className='publishedListsDiv'>
       <Link to="/published-lists">Published Lists</Link>
       <Routes>
         <Route path='/published-lists' element={ <PublishedLists /> } />
@@ -352,6 +353,7 @@ const handleDateSearch = () => {
             <button onClick={() => handlePublishList(listId)}>Publish List</button>
           </div>
         )}
+        </div>
 
         {/* {data.map((event) => (
           <div key={event.id}>
