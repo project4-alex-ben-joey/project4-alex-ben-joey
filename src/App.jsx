@@ -348,6 +348,7 @@ const handleDateSearch = () => {
                     <button onClick={() => handleRemoveConcert(concertId)}>Remove</button>
                   </li>
               ))}
+              
             </ul>
             <button className='deleteListButton' onClick={() => handleDeleteList(listId)}>Delete List</button>&ensp;
             <button className='publishListButton'  onClick={() => handlePublishList(listId)}>Publish List</button>
