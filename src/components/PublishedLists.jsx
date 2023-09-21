@@ -23,7 +23,7 @@ const PublishedLists = () => {
     }, [])
 
   return (
-    <div>
+    <div className='publishedLists'>
         <h2>Published Lists</h2>
         <ul>
             {publishedLists.map((list) => (

@@ -300,7 +300,8 @@ const handleDateSearch = () => {
         {/* Will likely change the structure to an unordered list */}
 
         {/* Form element for inputting name and budget for concert list */}
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form className='PLForm'
+        onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="name"></label>
           <input
             id='name' 
@@ -312,6 +313,7 @@ const handleDateSearch = () => {
           />
           <label htmlFor="budget"></label>
           <input
+            className='PLBudget'
             id='budget' 
             type="text"
             value={budget}
@@ -319,7 +321,7 @@ const handleDateSearch = () => {
             placeholder='Your budget' 
             required
           />
-          <button type='submit'>Submit</button>
+          <button className='PLButton' type='submit'>Submit</button>
         </form>
         <select onChange={(e) => handleListSelection(e.target.value)}>
           <option value="">Select a list</option>
