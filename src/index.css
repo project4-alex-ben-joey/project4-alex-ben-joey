@@ -171,6 +171,9 @@ max-width: 100%;
   margin-left: 30px;
   margin-right: 30px;
   
+/* not sure if i like with this
+border: 1px solid black; */
+
 }
 
 .orHighlite p{
@@ -268,6 +271,11 @@ li {
 
 .publishedListsDiv{
   border: 1px solid black;
+  padding: 5px;
+
+  position: fixed;
+  top: 22px;
+  right: 14px;
 }
 
 .PLForm{
@@ -285,9 +293,35 @@ li {
 
 }
 
+/*  Pub Lists Buttons -- ADD or DELETE*/
+.deleteListButton, .publishListButton{
+border: 1px solid black;
+
+}
+
+
+select{
+  margin: 15px 0px 5px 0px;
+  width: auto;
+  padding: 0px 5px 0px 5px;
+  font-size: 16px;
+  border: 1px solid black;
+  height: 34px;
+  appearance: none;
+
+  background-color:#C0C8F0;
+  font-weight: 500;
+}
+
+select:hover{
+  background-color: #747bff;
+  transition: 0.4s;
+  /* change color later */
+}
 
 
 /* 
+might need for formatting title of published lists after
 
 .upcomingShows {
   border: 1px solid black;
