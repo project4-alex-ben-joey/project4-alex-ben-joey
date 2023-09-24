@@ -3,15 +3,21 @@ import './App.css'
 import axios from 'axios'
 import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
 import app from './components/Firebase';
-import { Routes, Link, Route } from 'react-router-dom';
+import { Routes, Link, Route, useLocation } from 'react-router-dom';
 import PublishedLists from './components/PublishedLists';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGuitar } from '@fortawesome/free-solid-svg-icons';
+import ListCreationForm from './components/ListCreationForm';
+import Lists from './components/Lists';
+import SearchAndResults from './components/SearchAndResults';
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~
 
 function App() {
+  const location = useLocation();
+  const isPublishedListsRoute = location.pathname === "./published-lists";
+
   const [listName, setListName] = useState('');
   const [budget, setBudget] = useState('');
   const [selectedConcerts, setSelectedConcerts] = useState({});
@@ -20,6 +26,7 @@ function App() {
   const [data, setData] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); //default for now, switch after
   const [dateQuery, setDateQuery] = useState('');//for setting date instead
+
 
   // Calling the api data with axios
   useEffect(() => {
@@ -73,8 +80,8 @@ function App() {
   //add one of the above for the searchQuery also???
 
   const handleDateInputChange = (e) => {
-    const selectedDate = e.target.value;
     setDateQuery(e.target.value);
+    initiateSearch(dateQuery)
   };
   //this code allows us to search another date without needing a clear button/state
 
@@ -115,8 +122,8 @@ const handleDateSearch = () => {
 
   // handle the form submission for the list name and budget along with any concerts being added
   // TO DO: need to handle error if user tries to enter a list with the same name!
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (listName, budget) => {
+    // e.preventDefault();
 
     const listNameAndBudget = {
       name: listName,
@@ -294,145 +301,24 @@ const handleDateSearch = () => {
       <Link to="/published-lists">Published Lists</Link>
       <Routes>
         <Route path='/published-lists' element={ <PublishedLists /> } />
+        <Route path='/' element={
+        <>
+          <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} /> 
+          <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
+          <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
+        </>
+      
+        }
+        />
       </Routes>
       <FontAwesomeIcon icon={faGuitar} />
         {/* Mapping over the data array and checking to see how to get all the info */}
         {/* Will likely change the structure to an unordered list */}
+        {isPublishedListsRoute ? <PublishedLists /> : null}
 
-        {/* Form element for inputting name and budget for concert list */}
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="name"></label>
-          <input
-            id='name' 
-            type="text"
-            value={listName}
-            onChange={(e) => setListName(e.target.value)}
-            placeholder='Name of list'
-            required 
-          />
-          <label htmlFor="budget"></label>
-          <input
-            id='budget' 
-            type="text"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-            placeholder='Your budget' 
-            required
-          />
-          <button type='submit'>Submit</button>
-        </form>
-        <select onChange={(e) => handleListSelection(e.target.value)}>
-          <option value="">Select a list</option>
-          {lists.map((list) => (
-            <option key={list.id} value={list.id}>
-              {list.name}
-            </option>
-          ))}
-        </select>
+        
 
-        {/* Display selected list's name, budget, and concerts */}
-        {listId && (
-          <div>
-            <p>Selected List: {lists.find((list) => list.id === listId)?.name}</p>
-            <p>Budget: {lists.find((list) => list.id === listId)?.budget}</p>
-            <p>Concerts: </p>
-            <ul>
-              {Object.keys(
-                lists.find((list) => list.id === listId)?.concerts || {}
-                ).map((concertId) => (
-                  <li key={concertId}>
-                    Name: {lists.find((list) => list.id === listId)?.concerts[concertId]?.name}
-                    <button onClick={() => handleRemoveConcert(concertId)}>Remove</button>
-                  </li>
-              ))}
-            </ul>
-            <button onClick={() => handleDeleteList(listId)}>Delete List</button>
-            <button onClick={() => handlePublishList(listId)}>Publish List</button>
-          </div>
-        )}
 
-        {/* {data.map((event) => (
-          <div key={event.id}>
-            <p >Title: {event.name}</p> */}
-    
-      <div className='wholePage'>
-        {/* rename this class, its only the app not the body */}
-        {/* Mapping over the data array and checking to see how to get all the info */}
-        <div className='section1'>
-          <div>
-            <div>
-              <p className='inputText'>Who do you want to see?</p>
-            </div>
-            <input
-              type='text'
-              placeholder='Search for stuff'
-              value={searchQuery}
-              onChange={handleSearchInputChange}
-            />
-          </div>
-          <div className='orHighlite'><p>OR</p></div>
-          <div>
-            <div>
-              <p className='inputText'>When?</p>
-            </div>
-            <input
-              type='date'
-              placeholder='2023/01/01' //placeholder not working but doenst matter
-              value={dateQuery}
-              onChange={(e) => setDateQuery(e.target.value)}
-            />
-            
-            {/* <button onClick={handleDateSearch}>Search Date</button> */}
-          </div>
-        </div>
-        {/* fix input / needs to link to date data */}
-
-        {data !== null && (
-        <ul className='section2'>
-          <div className='upcomingShows'>
-            <p>Upcoming Shows</p>
-          </div>
-    
-        {data.slice(0, 5).map((event) => (
-          <>
-          <li key={event.id} className='results'>
-            
-    {/* Image */} 
-            {event.images.length > 0 && (
-              <div className='imgContainer'>
-                <img src={event.images[0].url} alt={data.name} className='eventImg' />
-              </div>
-            )}
-    <div className='concertInfo'>
-    {/* Title */}
-            <p className='eventName'>{event.name}</p>
-    {/* Location */}
-            <p className='eventLocation'>Location: {event._embedded.venues[0].name}</p>
-    {/* Price */}
-            {event.priceRanges && event.priceRanges.length > 0 ? (
-              <>
-                <p className='minPrice'>Min price: {event.priceRanges[0].min}</p>
-                <p className='maxPrice'>Max price: {event.priceRanges[0].max}</p>
-              </>
-            ) : (
-              <p>Price information not available</p>
-            )}
-            <p>Location: {event._embedded.venues[0].name}</p>
-            {/* add button to each concert to send data to firebase list */}
-            <button onClick={() => handleOnAdd(event)}>Add to list</button>
-            {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
-    {/* Date */}
-              <div className='eventContainer'>
-                <p className='eventDate'>{event.dates.start.localDate}</p>
-              </div>
-    </div>
-          </li>
-        </>          
-        ))}
-
-        </ul>
-        )}
-        </div>
       </>
   )
 }
