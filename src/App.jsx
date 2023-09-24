@@ -85,9 +85,9 @@ function App() {
   };
   //this code allows us to search another date without needing a clear button/state
 
-const handleDateSearch = () => {
-  initiateSearch(dateQuery);
-};
+  const handleDateSearch = () => {
+    initiateSearch(dateQuery);
+  };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -298,27 +298,24 @@ const handleDateSearch = () => {
 
   return (
     <>
-      <Link to="/published-lists">Published Lists</Link>
-      <Routes>
-        <Route path='/published-lists' element={ <PublishedLists /> } />
-        <Route path='/' element={
-        <>
-          <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} /> 
-          <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
-          <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
-        </>
-      
-        }
-        />
-      </Routes>
-      <FontAwesomeIcon icon={faGuitar} />
-        {/* Mapping over the data array and checking to see how to get all the info */}
-        {/* Will likely change the structure to an unordered list */}
-        {isPublishedListsRoute ? <PublishedLists /> : null}
-
-        
-
-
+      <div className='publishedListsDiv'>
+        <Link to="/published-lists">Published Lists</Link>
+        <Routes>
+          <Route path='/published-lists' element={ <PublishedLists /> } />
+          <Route path='/' element={
+          <>
+            <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} /> 
+            <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
+            <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
+          </>
+          }
+          />
+        </Routes>
+        <FontAwesomeIcon icon={faGuitar} />
+          {/* Mapping over the data array and checking to see how to get all the info */}
+          {/* Will likely change the structure to an unordered list */}
+          {isPublishedListsRoute ? <PublishedLists /> : null}
+        </div>
       </>
   )
 }
