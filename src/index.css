@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: visible;
 }
 
 /* h1 {
@@ -273,7 +274,9 @@ li {
   border: 1px solid black;
   padding: 5px;
 
-  position: fixed;
+  /* I just commented this code out since it was affected the upcoming shows section
+    I'm pretty sure that the publishedListsDiv is wrapping the the entire site as opposed to the list curently selected */
+  /* position: fixed; */
   top: 22px;
   right: 14px;
 }
