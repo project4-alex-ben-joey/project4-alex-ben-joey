@@ -407,3 +407,9 @@ might need for formatting title of published lists after
   width: 50%;
 }
 
+.test-list-component {
+  display: flex;
+  border: blue solid 1px;
+  justify-content: flex-end;
+}
+

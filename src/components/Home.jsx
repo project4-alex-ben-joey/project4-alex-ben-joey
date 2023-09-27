@@ -290,9 +290,12 @@ const Home = () => {
       <div className='test-logo'>
         <Logo />
       </div>
+      <div className='test-list-component'>
+        <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
+      </div>
       <Link to="/published-lists">Published Lists</Link>
       <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} />
-      <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
+      
         <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
     </>
   )
