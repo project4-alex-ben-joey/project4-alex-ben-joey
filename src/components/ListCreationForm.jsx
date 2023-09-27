@@ -27,10 +27,12 @@ const ListCreationForm = ({ lists, onCreateList, onListSelection }) => {
           <input
             className='PLBudget'
             id='budget' 
-            type="text"
+            type="number"
+            min="1"
+            max="10000"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            placeholder='Your budget' 
+            placeholder='Your budget'
             required
           />
           <button className='PLButton' type='submit'>Submit</button>
