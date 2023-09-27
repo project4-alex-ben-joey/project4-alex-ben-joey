@@ -13,7 +13,7 @@ const ListCreationForm = ({ lists, onCreateList, onListSelection }) => {
 
   return (
     <>
-        <form onSubmit={(e) => handleSubmit(e, listName, budget)}>
+        <form className='listCreationForm' onSubmit={(e) => handleSubmit(e, listName, budget)}>
           <label htmlFor="name"></label>
           <input
             id='name' 
@@ -25,14 +25,17 @@ const ListCreationForm = ({ lists, onCreateList, onListSelection }) => {
           />
           <label htmlFor="budget"></label>
           <input
+            className='PLBudget'
             id='budget' 
-            type="text"
+            type="number"
+            min="1"
+            max="10000"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            placeholder='Your budget' 
+            placeholder='Your budget'
             required
           />
-          <button type='submit'>Submit</button>
+          <button className='PLButton' type='submit'>Submit</button>
         </form>
         <select onChange={(e) => onListSelection(e.target.value)}>
           <option value="">Select a list</option>

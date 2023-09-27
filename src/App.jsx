@@ -13,12 +13,9 @@ import SearchAndResults from './components/SearchAndResults';
 import Home from './components/Home';
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~
-
 function App() {
   const location = useLocation();
   const isPublishedListsRoute = location.pathname === "./published-lists";
-
   const [listName, setListName] = useState('');
   const [budget, setBudget] = useState('');
   const [selectedConcerts, setSelectedConcerts] = useState({});
@@ -89,7 +86,6 @@ function App() {
   const handleDateSearch = () => {
     initiateSearch(dateQuery);
   };
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
   const initiateSearch = (selectedDate) => {
@@ -305,7 +301,10 @@ function App() {
           <Route path='/' element={ <Home lists={lists} listId={listId} handleRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} handlePublishList={handlePublishList} onCreateList={handleSubmit} handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />}
           />
         </Routes>
-        <FontAwesomeIcon icon={faGuitar} />
+        <div className='logo'>
+          <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
+        </div>
+        {/* <Logo /> */}
           {/* Mapping over the data array and checking to see how to get all the info */}
           {/* Will likely change the structure to an unordered list */}
           {isPublishedListsRoute ? <PublishedLists /> : null}
