@@ -10,6 +10,7 @@ import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import ListCreationForm from './components/ListCreationForm';
 import Lists from './components/Lists';
 import SearchAndResults from './components/SearchAndResults';
+// import { Logo } from './components/Logo';
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~
@@ -312,6 +313,10 @@ function App() {
           />
         </Routes>
         <FontAwesomeIcon icon={faGuitar} />
+        <div className='logo'>
+          <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
+        </div>
+        {/* <Logo /> */}
           {/* Mapping over the data array and checking to see how to get all the info */}
           {/* Will likely change the structure to an unordered list */}
           {isPublishedListsRoute ? <PublishedLists /> : null}

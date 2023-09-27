@@ -136,9 +136,9 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             ) : (
               <p>Price information not available</p>
             )}
-            <p>Location: {event._embedded.venues[0].name}</p>
+            
             {/* add button to each concert to send data to firebase list */}
-            <button onClick={() => handleOnAdd(event)}>Add to list</button>
+            <button className='addToListButton' onClick={() => handleOnAdd(event)}>Add to list</button>
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
     {/* Date */}
               <div className='eventContainer'>
