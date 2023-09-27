@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logoImg from "../../assets/ConcertAccountant_animated.gif";
 
 const Logo = () => { 
   return (
     <>
       <Link className='logo' to='/home'>
-        <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
+        <img className='logoImg' src={logoImg} alt='Concert Accountant Logo with speaker playing music' />
       </Link>
     </>
   )
