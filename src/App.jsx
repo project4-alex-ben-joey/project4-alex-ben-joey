@@ -10,6 +10,7 @@ import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import ListCreationForm from './components/ListCreationForm';
 import Lists from './components/Lists';
 import SearchAndResults from './components/SearchAndResults';
+import Home from './components/Home';
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +29,7 @@ function App() {
   const [dateQuery, setDateQuery] = useState('');//for setting date instead
 
 
-  // Calling the api data with axios
+//   // Calling the api data with axios
   useEffect(() => {
     if (searchQuery || dateQuery) {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`
@@ -230,7 +231,7 @@ function App() {
     setListId(selectedListId);
   }
 
-  // function to handle removing a concert from a list
+//   // function to handle removing a concert from a list
   const handleRemoveConcert = (concertId) => {
     // Get the selected list by listId
     const selectedList = lists.find((list) => list.id === listId);
@@ -299,16 +300,9 @@ function App() {
   return (
     <>
       <div className='publishedListsDiv'>
-        <Link to="/published-lists">Published Lists</Link>
         <Routes>
           <Route path='/published-lists' element={ <PublishedLists /> } />
-          <Route path='/' element={
-          <>
-            <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} /> 
-            <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
-            <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
-          </>
-          }
+          <Route path='/' element={ <Home lists={lists} listId={listId} handleRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} handlePublishList={handlePublishList} onCreateList={handleSubmit} handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />}
           />
         </Routes>
         <FontAwesomeIcon icon={faGuitar} />

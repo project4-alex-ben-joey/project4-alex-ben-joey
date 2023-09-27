@@ -25,11 +25,20 @@ const PublishedLists = () => {
   return (
     <div className='publishedLists'>
         <h2>Published Lists</h2>
+        <Link to='/'>Home</Link>
         <ul>
             {publishedLists.map((list) => (
-                <li key={list.id}>
-                    <Link to={`/published-list/${list.id}`}>{list.name}</Link>
-                </li>
+                <div key={list.id}>
+                    <h3>{list.name} - Budget: ${list.budget}</h3>
+                    {list.concerts && Object.keys(list.concerts).map((concertId) => (
+                        <li key={concertId}>
+                            <p>{list.concerts[concertId].name} - date: {list.concerts[concertId].date}</p>
+                            {list.concerts[concertId] && (
+                                <img src={list.concerts[concertId].images[0].url} alt={list.concerts[concertId].name} />
+                            )}
+                        </li>
+                    ))}
+                </div>
             ))}
         </ul>
     </div>
