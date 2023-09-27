@@ -169,14 +169,13 @@ max-width: 100%;
   justify-content: flex-end;
   gap: 5px;
 
-  margin-top: 20px;
-  
-  float: right;
-
-  border: 1px solid red;
-
-
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
+/* li.results{
+  min-height: 400px;
+} */
 
 .guitarIconDiv{
   /* border: 1px solid black; */
