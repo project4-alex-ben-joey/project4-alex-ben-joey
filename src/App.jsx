@@ -312,7 +312,6 @@ function App() {
           }
           />
         </Routes>
-        <FontAwesomeIcon icon={faGuitar} />
         <div className='logo'>
           <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
         </div>
