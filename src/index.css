@@ -155,7 +155,7 @@ max-width: 100%;
   padding: 0px 5px;
   border: 1px solid black;
   border-radius: none;
-  margin: 10% 10px 1% 300px;
+  
   background-color: #97DAE8;
 }
 
@@ -164,6 +164,32 @@ max-width: 100%;
   transition: 0.4s;
 }
 
+.makingButtonNextToIcon{
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+
+  margin-top: 20px;
+  
+  float: right;
+
+  border: 1px solid red;
+
+
+}
+
+.guitarIconDiv{
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0;
+  /* height: 30px; */
+  /* display: flex;
+  justify-content: center; */
+}
+
+.guitarIconDiv img{
+  width: 30px;
+}
 
 .flexSearchContainer {
   display: flex;
