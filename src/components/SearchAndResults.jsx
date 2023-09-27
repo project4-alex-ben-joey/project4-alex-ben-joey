@@ -5,6 +5,9 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
     const [searchQuery, setSearchQuery] = useState('');
     const [dateQuery, setDateQuery] = useState('');
     const [data, setData] = useState(null);
+    // TESTING BEGINSsssssssssssssssssssssssss
+    const [iconVisible, setIconVisible] = useState(false);
+    const [addToListClicked, setAddToListClicked] = useState(false);
 
     handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value)
@@ -139,10 +142,19 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             
             <div className='makingButtonNextToIcon'>
             {/* add button to each concert to send data to firebase list */}
-            <button className='addToListButton' onClick={() => handleOnAdd(event)}>Add to list</button>
-            <div className='guitarIconDiv'>
-              <img src="./assets/guitar1.png" alt="guitar icon unclicked" />
-            </div>
+            <button 
+            className='addToListButton'
+            onClick={() => {
+              handleOnAdd(event);
+              setIconVisible(!iconVisible); //turning on visibility
+              setAddToListClicked(true); //making button clicked
+            }}
+            >Add to list</button>
+            {addToListClicked && iconVisible && (
+              <div className='guitarIconDiv'>
+                <img src="./assets/guitar1.png" alt="guitar icon unclicked" />
+              </div>
+            )}
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
             </div>
     {/* Date */}
