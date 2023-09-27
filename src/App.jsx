@@ -10,6 +10,7 @@ import { faGuitar } from '@fortawesome/free-solid-svg-icons';
 import ListCreationForm from './components/ListCreationForm';
 import Lists from './components/Lists';
 import SearchAndResults from './components/SearchAndResults';
+import Logo from './components/Logo';
 import Home from './components/Home';
 
 
@@ -297,14 +298,12 @@ function App() {
     <>
       <div className='publishedListsDiv'>
         <Routes>
+          <Route path='/' element={ <Logo />} />
           <Route path='/published-lists' element={ <PublishedLists /> } />
-          <Route path='/' element={ <Home lists={lists} listId={listId} handleRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} handlePublishList={handlePublishList} onCreateList={handleSubmit} handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />}
+          <Route path='/home' element={ <Home lists={lists} listId={listId} handleRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} handlePublishList={handlePublishList} onCreateList={handleSubmit} handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />}
           />
         </Routes>
-        <div className='logo'>
-          <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
-        </div>
-        {/* <Logo /> */}
+
           {/* Mapping over the data array and checking to see how to get all the info */}
           {/* Will likely change the structure to an unordered list */}
           {isPublishedListsRoute ? <PublishedLists /> : null}

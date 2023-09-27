@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
 import axios from 'axios'
 import app from '../components/Firebase';
+import Logo from './Logo'
 
 const Home = () => {
 
@@ -286,10 +287,13 @@ const Home = () => {
 
   return (
     <>
-        <Link to="/published-lists">Published Lists</Link>
-        <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} />
-        <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
-         <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
+      <div className='test-logo'>
+        <Logo />
+      </div>
+      <Link to="/published-lists">Published Lists</Link>
+      <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} />
+      <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
+        <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />
     </>
   )
 }

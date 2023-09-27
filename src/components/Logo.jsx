@@ -1,13 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Logo = () => { 
   return (
     <>
-    console.log('im working');
-    <div>
-      <p>logo test</p>
-      {/* <img src='.assets\ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' /> */}
-    </div>
+      <Link className='logo' to='/home'>
+        <img className='logoImg' src='./assets/ConcertAccountant_animated.gif' alt='Concert Accountant Logo with speaker playing music' />
+      </Link>
     </>
   )
 }
