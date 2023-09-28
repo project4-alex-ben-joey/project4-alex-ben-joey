@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImg from "../../assets/ConcertAccountant_animated.gif";
+import logoImg from "../assets/ConcertAccountant_animated.gif";
 
 const Logo = () => { 
   return (

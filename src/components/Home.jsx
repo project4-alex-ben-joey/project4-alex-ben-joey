@@ -147,28 +147,32 @@ const Home = () => {
     }
   };
 
-  // add selected concert to firebase
-  const addConcertsToFirebase = (listId, events) => {
-      // Check if the event already exists in the selected concerts
-    if (selectedConcerts[events.id]) {
-      console.log(`Concert ${events.name} is already in list`)
-    }
-
-    // Add selected concerts to Firebase under the same listId
-    const database = getDatabase(app);
-    const concertsRef = ref(database, `lists/${listId}/concerts`);
-
-
-    try {
-      push(concertsRef, events);
-      console.log('Success', events);
-    } catch (err) {
-      console.error('Error', err);
-    }
-    // Clear the selectedConcerts state after adding to Firebase
-    // setSelectedConcerts([]);
+const addConcertsToFirebase = (listId, events) => {
+  // Check if the event already exists in the selected concerts
+  if (selectedConcerts[events.id]) {
+    console.log(`Concert ${events.name} is already in list`);
   }
-  
+
+  // Include the iconVisible property when adding to Firebase
+  const concertWithIconVisible = {
+    ...events,
+    iconVisible: true, // Set this to your desired initial value
+  };
+
+  // Add selected concerts to Firebase under the same listId
+  const database = getDatabase(app);
+  const concertsRef = ref(database, `lists/${listId}/concerts`);
+
+  try {
+    push(concertsRef, concertWithIconVisible);
+    console.log('Success', concertWithIconVisible);
+  } catch (err) {
+    console.error('Error', err);
+  }
+  // Clear the selectedConcerts state after adding to Firebase
+  // setSelectedConcerts([]);
+};
+
   
   // function to handle adding concerts to a specific list
   // TO DO: handle error so user can't submit the same concert twice

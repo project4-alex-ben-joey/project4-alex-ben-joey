@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import app from '../components/Firebase';
+import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
 
-const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInputChange, initiateSearch }) => {
+const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInputChange, initiateSearch, listId }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [dateQuery, setDateQuery] = useState('');
     const [data, setData] = useState(null);
     // TESTING BEGINSsssssssssssssssssssssssss
     const [iconVisible, setIconVisible] = useState(false);
-    const [addToListClicked, setAddToListClicked] = useState(false);
+    const [addToListClicked, setAddToListClicked] = useState({});
 
     handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value)
@@ -18,6 +20,18 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
         setDateQuery(e.target.value);
         initiateSearch(dateQuery)
     }
+
+    
+  const updateFirebaseIconVisibility = (listId, concertId, isVisible) => {
+    // Get a reference to your Firebase database
+    const database = getDatabase(app);
+
+    // Reference to the specific concert's iconVisible property
+    const concertIconVisibleRef = ref(database, `lists/${listId}/concerts/${concertId}/iconVisible`);
+
+    // Update the iconVisible property
+    update(concertIconVisibleRef, isVisible);
+  };
 
     // Calling the api data with axios
     useEffect(() => {
@@ -142,17 +156,34 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             
             <div className='makingButtonNextToIcon'>
             {/* add button to each concert to send data to firebase list */}
-            <button 
-            className='addToListButton'
-            onClick={() => {
-              handleOnAdd(event);
-              setIconVisible(!iconVisible); //turning on visibility
-              setAddToListClicked(true); //making button clicked
-            }}
-            >Add to list</button>
-            {addToListClicked && iconVisible && (
+              <button
+              className='addToListButton'
+              onClick={() => {
+                handleOnAdd(event);
+                const listId = '-NfK8eSyWU7AMY3jva8n'; // Replace with the actual list ID
+                const concertId = event.id; // Assuming event.id can be used as concert ID
+                setAddToListClicked((prevClicked) => ({
+                  ...prevClicked,
+                  [event.id]: !prevClicked[event.id],
+                }));
+                updateFirebaseIconVisibility(
+                  listId,
+                  concertId,
+                  !addToListClicked[event.id]
+                );
+              }}
+            >
+              Add to list
+            </button>
+            {addToListClicked[event.id] && (
               <div className='guitarIconDiv'>
                 <img src="./assets/guitar1.png" alt="guitar icon unclicked" />
+              </div>
+            )}
+            {/* Show the icon if iconVisible is true */}
+            {event.iconVisible && (
+              <div className='iconDiv'>
+                <img src="icon-image.png" alt="Icon" />
               </div>
             )}
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
