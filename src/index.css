@@ -233,7 +233,7 @@ border: 1px solid black; */
   justify-content: space-evenly;
   align-items: center;
 
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .upcomingShows {
@@ -341,19 +341,21 @@ li {
   height: 200px;
 }
 
+
+
+
+/***************** list creation form ************************/
 .SavedListsBOX {
   /* display: flex; */
-  border: blue solid 1px;
+  border: black solid 3px;
   /* justify-content: flex-end; */
 
   position: fixed;
   top: 5px;
   right: 5px;
   
+  max-width: 300px;
 }
-
-
-/***************** list creation form ************************/
 
 .listCreationForm{
   /* border: 1px solid red; */

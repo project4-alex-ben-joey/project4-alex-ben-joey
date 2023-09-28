@@ -54,6 +54,7 @@ const PublishedLists = () => {
                             {/* Date */}
                                 <p className='eventDate'>date:{list.concerts[concertId].date}</p>
 
+                                {/* Alex please fix */}
                             </div>
                             
                         </li>
