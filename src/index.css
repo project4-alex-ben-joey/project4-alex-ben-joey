@@ -557,8 +557,9 @@ might need for formatting title of published lists after
 .budgetInfo{
   border: 1px solid black;
   position: absolute;
-  right: 5px;
-  bottom: 5px;
+  right: -140px;
+  bottom: 10px;
+
 
   background-color: #97DAE8;
 }
@@ -568,6 +569,6 @@ might need for formatting title of published lists after
   justify-content: center;
 }
 
-*{
+/* *{
   z-index: 1;
-}
+} */
