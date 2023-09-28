@@ -536,9 +536,10 @@ might need for formatting title of published lists after
 }
 
 .publishedLists h3{
-  margin-top: 15px;
+  margin-top: 18px;
   margin-bottom: 5px;
   text-decoration: underline;
+  font-weight: 700;
 }
 
 .publishedLists p{
@@ -550,15 +551,16 @@ might need for formatting title of published lists after
 }
 
 .eachBudgetContainer{
-  border: 1px solid red;
+  /* border: 1px solid red; */
   position: relative;
+  text-align: left;
 }
 
 .budgetInfo{
   border: 1px solid black;
   position: absolute;
   right: -140px;
-  bottom: 10px;
+  bottom: -7px;
 
 
   background-color: #97DAE8;
