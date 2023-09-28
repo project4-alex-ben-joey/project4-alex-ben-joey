@@ -357,6 +357,8 @@ li {
   max-width: 300px;
 }
 
+
+
 .listCreationForm{
   /* border: 1px solid red; */
   padding: 5px;
@@ -384,28 +386,7 @@ li {
   transition: 0.4s;
 }
 
-/*  Pub Lists Buttons -- ADD or DELETE*/
-.deleteListButton, .publishListButton{
-border: 1px solid black;
-}
 
-.publishListButton:hover{
-  background-color:#25cd52;
-  transition: 0.4s;
-}
-
-.removeButton  {
-    /* border-radius: 8px; */
-    padding: 0px 5px;
-    border: 1px solid black;
-    border-radius: none;
-  }
-  
-  .removeButton:hover, .deleteListButton:hover {
-    /* border-color:#C0C8F0; */
-    background-color:#cd2525;
-    transition: 0.4s;
-  }
 
 select{
   margin: 15px 0px 5px 0px;
@@ -428,6 +409,29 @@ select:hover{
 }
 
 
+
+/*  Pub Lists Buttons -- ADD or DELETE*/
+.deleteListButton, .publishListButton{
+  border: 1px solid black;
+  }
+  
+  .publishListButton:hover{
+    background-color:#25cd52;
+    transition: 0.4s;
+  }
+  
+  .removeButton  {
+      /* border-radius: 8px; */
+      padding: 0px 5px;
+      border: 1px solid black;
+      border-radius: none;
+    }
+    
+    .removeButton:hover, .deleteListButton:hover {
+      /* border-color:#C0C8F0; */
+      background-color:#cd2525;
+      transition: 0.4s;
+    }
 /* 
 might need for formatting title of published lists after
 
@@ -449,7 +453,26 @@ might need for formatting title of published lists after
 
 */
 
+.publishedListsLink{
+  text-decoration: underline;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background-color: #C0C8F0;
+  color:black;
+  
+  padding: 0px 5px;
+  border: 1px solid black;
+  border-radius: none;
 
+  box-shadow: 5px 5px 2px 1px black;
+}
+
+.publishedListsLink:hover{
+  background-color: #535bf2;
+  color:black;
+  transition: 0.4s;
+}
 /**********  Published Lists****** */
 .linkHome {
   background-color:#C0C8F0;

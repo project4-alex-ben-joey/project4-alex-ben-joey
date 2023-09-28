@@ -92,7 +92,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
               onChange={handleSearchInputChange}
             />
           </div>
-          <div className='orHighlite'><p>OR</p></div>
+          <div className='orHighlite'><p>or</p></div>
           <div>
             <div>
               <p className='inputText'>When?</p>
