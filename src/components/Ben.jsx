@@ -1,11 +1,24 @@
 import React from "react";
 import "../App.css";
+  // This is the Dark Mode JS code.
+  // With JS, target turquoise background with class and replace with black.
+  
+  function darkmode() {
+    let element = document.body;
+    element.classList.toggle("dark");
+}
+    // End of JS
+
 function Ben() {
   return (
     /* HTML GOES HERE */
     <section className="flexcontainer">
       <div>
         <div>
+          {/* This button indicates a dark mode toggle */}
+          <div>
+          <button onClick={darkmode}>Switch Mode</button>
+          </div>
           <h1>Concert Accountant</h1>
 
           <div className="concertflex">
