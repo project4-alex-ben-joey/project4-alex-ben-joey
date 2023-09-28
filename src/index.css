@@ -357,7 +357,12 @@ li {
   max-width: 300px;
 }
 
-
+.selectAList-li{
+  border: 1px solid black;
+  max-width: fit-content;
+  text-overflow: wrap;
+  margin-bottom: 5px;
+}
 
 .listCreationForm{
   /* border: 1px solid red; */
@@ -407,6 +412,7 @@ select:hover{
   /* change color later 
   nevermind currently like this*/
 }
+
 
 
 
