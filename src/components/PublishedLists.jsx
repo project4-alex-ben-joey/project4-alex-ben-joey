@@ -28,12 +28,15 @@ const PublishedLists = () => {
             <Link className='linkHomeLink' to='/home'>Home</Link>
         </div>
         <h2>My Shows</h2>
-        <ul>
+        <ul >
             {publishedLists.map((list) => (
-                <div key={list.id}>
+                <>
+                {/* <div className='flexContainer'> */}
+                <div className='eachBudgetContainer' key={list.id}>
                     <h3>{list.name} - Budget: ${list.budget}</h3>
                     {list.concerts && Object.keys(list.concerts).map((concertId) => (
                         // actual results
+                        <>
                         <li key={concertId} className='results'>
                         {/* Image  */}
                             {list.concerts[concertId] && (
@@ -53,15 +56,23 @@ const PublishedLists = () => {
                                 <p className='eventDate'>location: {list.concerts[concertId]._embedded.venues[0].name}</p>
                             {/* Date */}
                                 <p className='eventDate'>date: {list.concerts[concertId].dates.start.localDate}</p>
-
-                                {/* Alex please fix */}
                             </div>
                             
                         </li>
+                        </>
                     ))}
+                    <div className='budgetInfo'>
+                        <p>Remaining Budget: $$$$</p>
+                    </div>
                 </div>
+                {/* <div className='budgetInfo'>
+                    <p>Remaining Budget: $$$$</p>
+                </div> */}
+                {/* </div> */}
+                </>
             ))}
         </ul>
+        
     </div>
   )
 }

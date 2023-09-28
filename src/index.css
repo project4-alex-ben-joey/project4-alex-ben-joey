@@ -548,3 +548,26 @@ might need for formatting title of published lists after
 .publishedLists img{
 
 }
+
+.eachBudgetContainer{
+  border: 1px solid red;
+  position: relative;
+}
+
+.budgetInfo{
+  border: 1px solid black;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+
+  background-color: #97DAE8;
+}
+
+.flexContainer{
+  display: flex;
+  justify-content: center;
+}
+
+*{
+  z-index: 1;
+}
