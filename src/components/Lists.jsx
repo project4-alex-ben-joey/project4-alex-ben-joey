@@ -14,12 +14,13 @@ const Lists = ({ selectedList, lists, onRemoveConcert, onDeleteList, onPublishLi
               {Object.keys(
                 selectedList.concerts || {}
                 ).map((concertId) => (
-                  <li key={concertId}>
+                  <li className='selectAList-li' key={concertId}>
                     {selectedList.concerts[concertId]?.name}
                     <button className='removeButton' onClick={() => onRemoveConcert(concertId)}>Remove</button>
                   </li>
               ))}
             </ul>
+
             <button className='deleteListButton' onClick={() => onDeleteList(selectedList.id)}>Delete List</button>
             &nbsp;&nbsp;
             <button className='publishListButton' onClick={() => onPublishList(selectedList.id)}>Publish List</button>
