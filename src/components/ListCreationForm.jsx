@@ -20,7 +20,7 @@ const ListCreationForm = ({ lists, onCreateList, onListSelection }) => {
             type="text"
             value={listName}
             onChange={(e) => setListName(e.target.value)}
-            placeholder='Name of list'
+            placeholder='Name your list'
             required 
           />
           <label htmlFor="budget"></label>
@@ -32,7 +32,7 @@ const ListCreationForm = ({ lists, onCreateList, onListSelection }) => {
             max="10000"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            placeholder='Your budget'
+            placeholder='Set your budget'
             required
           />
           <button className='PLButton' type='submit'>Submit</button>

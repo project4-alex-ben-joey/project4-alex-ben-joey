@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import app from '../components/Firebase';
-import { getDatabase, ref, onValue, push, set, remove } from 'firebase/database';
+import { getDatabase, ref, update } from 'firebase/database';
 
 const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInputChange, initiateSearch, listId }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [dateQuery, setDateQuery] = useState('');
     const [data, setData] = useState(null);
     // TESTING BEGINSsssssssssssssssssssssssss
-    const [iconVisible, setIconVisible] = useState(false);
+    const [iconVisible, setIconVisible] = useState({});
     const [addToListClicked, setAddToListClicked] = useState({});
+
+    console.log("this is list id", listId);
 
     handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value)
@@ -106,7 +108,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
               onChange={handleSearchInputChange}
             />
           </div>
-          <div className='orHighlite'><p>OR</p></div>
+          <div className='orHighlite'><p>or</p></div>
           <div>
             <div>
               <p className='inputText'>When?</p>
@@ -177,7 +179,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             </button>
             {addToListClicked[event.id] && (
               <div className='guitarIconDiv'>
-                <img src="./assets/guitar1.png" alt="guitar icon unclicked" />
+                <img src="./assets/guitar1.png" alt="guitar icon clicked" />
               </div>
             )}
             {/* Show the icon if iconVisible is true */}

@@ -38,7 +38,6 @@ const Home = () => {
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
       setData(res.data._embedded.events);
-      console.log(res.data._embedded.events[0]._embedded.venues[0].name);
       //remove this console log eventually
     })
     .catch((error) => {
@@ -120,8 +119,6 @@ const Home = () => {
       name: listName,
       budget: budget,
     };
-
-    console.log(listNameAndBudget);
 
     // Send form name and budget to Firebase and get the generated list ID
     const database = getDatabase(app);
@@ -294,10 +291,13 @@ const addConcertsToFirebase = (listId, events) => {
       <div className='test-logo'>
         <Logo />
       </div>
-      <div className='test-list-component'>
+
+      <div className='SavedListsBOX'>
         <Lists selectedList={lists.find((list) => list.id === listId)} lists={lists} onRemoveConcert={handleRemoveConcert} onDeleteList={handleDeleteList} onPublishList={handlePublishList} />
       </div>
-      <Link to="/published-lists">Published Lists</Link>
+
+      <Link className='publishedListsLink' to="/published-lists">See My Lists</Link>
+      
       <ListCreationForm lists={lists} onCreateList={handleSubmit} onListSelection={handleListSelection} />
       
         <SearchAndResults handleOnAdd={handleOnAdd} handleSearchInputChange={handleSearchInputChange} handleDateInputChange={handleDateInputChange} initiateSearch={initiateSearch} />

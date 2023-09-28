@@ -128,8 +128,6 @@ function App() {
       budget: budget,
     };
 
-    console.log(listNameAndBudget);
-
     // Send form name and budget to Firebase and get the generated list ID
     const database = getDatabase(app);
     const listRef = ref(database, 'lists');
