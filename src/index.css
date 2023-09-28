@@ -3,15 +3,19 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+#root{
+  padding: 0px;
 }
 
 a {
@@ -44,7 +48,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #747bff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -71,7 +75,7 @@ button:focus-visible {
   }
 }
 
-/* ---------------------------above is vite default------------------------------- */
+/* --------------------above is vite default----------------------- */
 
 /* ---------------------------styles------------------------------- */
 /* font-family: 'Maitree', serif;
@@ -84,7 +88,9 @@ colors:
 #97DAE8 -- light blue
 #C0C8F0 -- light purple
 
-bonus colors put here */
+bonus colors:
+#F0D6C8 -- peach
+#B6D7A8 -- green */
 
 *{
   font-family: 'Maitree', serif;
@@ -114,7 +120,6 @@ li {
 
 p {
   margin: 0px;
-  
 }
 
 .results {
@@ -213,7 +218,6 @@ max-width: 100%;
   
 /* not sure if i like with this
 border: 1px solid black; */
-
 }
 
 .orHighlite p{
@@ -229,6 +233,7 @@ border: 1px solid black; */
   justify-content: space-evenly;
   align-items: center;
 
+  margin-top: 10px;
 }
 
 .upcomingShows {
@@ -255,8 +260,6 @@ ul{
 li {
   display: flex;
   width: 100%;
-  
-
 }
 
 .results {
@@ -297,30 +300,67 @@ li {
   right: -16px;
 
   text-align: left;
-
 }
 
 .eventDate {
   margin: 0px;
   padding: 2px;
+}
 
+.logoStart {
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.logoStart:hover{
+  /* background-color: yellow; */
+}
+
+.logoImg{
+  /* object-fit: contain; */
+}
+
+
+/* these are for mini logo only! */
+.test-logo {
+  /* width: 50%; */
+  /* height: 5vh; */
+  display: flex;
+  justify-content: flex-start;
+  position: fixed;
+  top: -50px;
+  left: 10px;
+}
+
+.test-logo img{
+  width: 200px;
+  height: 200px;
+}
+
+.SavedListsBOX {
+  /* display: flex; */
+  border: blue solid 1px;
+  /* justify-content: flex-end; */
+
+  position: fixed;
+  top: 5px;
+  right: 5px;
   
 }
 
 
-
-
-/*  Published Lists */
+/***************** list creation form ************************/
 
 .listCreationForm{
-  border: 1px solid black;
+  /* border: 1px solid red; */
   padding: 5px;
 
   /* I just commented this code out since it was affected the upcoming shows section
     I'm pretty sure that the publishedListsDiv is wrapping the the entire site as opposed to the list curently selected */
-  /* position: fixed; */
-  top: 22px;
-  right: 14px;
 }
 
 .PLForm{
@@ -335,15 +375,35 @@ li {
   padding: 0px 5px;
   border: 1px solid black;
   border-radius: none;
+}
 
+.PLButton:hover{
+  background-color: #747bff;
+  transition: 0.4s;
 }
 
 /*  Pub Lists Buttons -- ADD or DELETE*/
 .deleteListButton, .publishListButton{
 border: 1px solid black;
-
 }
 
+.publishListButton:hover{
+  background-color:#25cd52;
+  transition: 0.4s;
+}
+
+.removeButton  {
+    /* border-radius: 8px; */
+    padding: 0px 5px;
+    border: 1px solid black;
+    border-radius: none;
+  }
+  
+  .removeButton:hover, .deleteListButton:hover {
+    /* border-color:#C0C8F0; */
+    background-color:#cd2525;
+    transition: 0.4s;
+  }
 
 select{
   margin: 15px 0px 5px 0px;
@@ -361,7 +421,8 @@ select{
 select:hover{
   background-color: #747bff;
   transition: 0.4s;
-  /* change color later */
+  /* change color later 
+  nevermind currently like this*/
 }
 
 
@@ -387,29 +448,72 @@ might need for formatting title of published lists after
 */
 
 
-.logo {
+/**********  Published Lists****** */
+.linkHome {
+  background-color:#C0C8F0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  /* text-align: center; */
+  /* margin-left: 30px;
+  margin-right: 30px; */
+  margin: 0 auto;
   border: 1px solid black;
-  margin: 0;
-  padding: 0;
-  height: 50vh;
-  display: flex;
+
+  position: fixed;
+  top: 5px;
+  left: 5px;
+}
+
+.linkHome:hover{
+  background-color: #535bf2;
+  transition: 0.4s;
+}
+
+.linkHomeLink{
+  text-align: center;
   justify-content: center;
-
+  margin: 0 auto;
+  padding: 0 auto;
+  font-weight: bold;
+  color: black;
 }
 
-.logoImg{
-  /* object-fit: contain; */
+.linkHomeLink:hover{
+  color: rgb(246, 246, 8);
+}
 
+
+
+.publishedLists{
+  /* border: 4px dotted red; */
+}
+
+/* "My Shows - Title */
+.publishedLists h2{
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
   
+  text-align: left;
+  font-weight: 700;
+
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
-.test-logo {
-  width: 50%;
+.publishedLists h3{
+  margin-top: 15px;
+  margin-bottom: 5px;
+  text-decoration: underline;
 }
 
-.test-list-component {
-  display: flex;
-  border: blue solid 1px;
-  justify-content: flex-end;
+.publishedLists p{
+
 }
 
+.publishedLists img{
+
+}

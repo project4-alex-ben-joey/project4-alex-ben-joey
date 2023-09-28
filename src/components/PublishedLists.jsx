@@ -24,18 +24,38 @@ const PublishedLists = () => {
 
   return (
     <div className='publishedLists'>
-        <h2>Published Lists</h2>
-        <Link to='/'>Home</Link>
+        <div className='linkHome'>
+            <Link className='linkHomeLink' to='/'>Home</Link>
+        </div>
+        <h2>My Shows</h2>
         <ul>
             {publishedLists.map((list) => (
                 <div key={list.id}>
                     <h3>{list.name} - Budget: ${list.budget}</h3>
                     {list.concerts && Object.keys(list.concerts).map((concertId) => (
-                        <li key={concertId}>
-                            <p>{list.concerts[concertId].name} - date: {list.concerts[concertId].date}</p>
+                        // actual results
+                        <li key={concertId} className='results'>
+                        {/* Image  */}
                             {list.concerts[concertId] && (
-                                <img src={list.concerts[concertId].images[0].url} alt={list.concerts[concertId].name} />
+                                <div className='imgContainer'>
+                                    <img src={list.concerts[concertId].images[0].url} alt={list.concerts[concertId].name} />
+                                </div>
                             )}
+                            
+                            <div> 
+                                {/* need this div to make them flex downwards
+                                even though no styles are being applied to it...??? */}
+
+                            {/* Title */}
+                                <p className='eventName'>{list.concerts[concertId].name}</p>
+                                
+                            {/* Location */}
+                                <p className='eventDate'>location:{list.concerts[concertId].location}</p>
+                            {/* Date */}
+                                <p className='eventDate'>date:{list.concerts[concertId].date}</p>
+
+                            </div>
+                            
                         </li>
                     ))}
                 </div>

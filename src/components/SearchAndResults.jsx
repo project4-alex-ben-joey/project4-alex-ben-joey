@@ -142,6 +142,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             
             <div className='makingButtonNextToIcon'>
             {/* add button to each concert to send data to firebase list */}
+    {/* Button -- Add To List */}
             <button 
             className='addToListButton'
             onClick={() => {
@@ -152,7 +153,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
             >Add to list</button>
             {addToListClicked && iconVisible && (
               <div className='guitarIconDiv'>
-                <img src="./assets/guitar1.png" alt="guitar icon unclicked" />
+                <img src="./assets/guitar1.png" alt="guitar icon clicked" />
               </div>
             )}
             {/* change state to show that concert was added and add error handling in case user tries to add concert again */}
