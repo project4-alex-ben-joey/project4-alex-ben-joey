@@ -53,11 +53,14 @@ const PublishedLists = () => {
                                 <p className='eventName'>{list.concerts[concertId].name}</p>
                                 
                             {/* Location */}
-                                <p className='eventDate'>location: {list.concerts[concertId]._embedded.venues[0].name}</p>
+                                <p className='eventLocation'>location: {list.concerts[concertId]._embedded.venues[0].name}</p>
                             {/* Date */}
                                 <p className='eventDate'>date: {list.concerts[concertId].dates.start.localDate}</p>
+                            {/* Prices */}
+                                <p className='priceMin'>min price!</p>
+                                <p className='priceMax'>max price!</p>
+
                             </div>
-                            
                         </li>
                         </>
                     ))}
@@ -65,10 +68,6 @@ const PublishedLists = () => {
                         <p>Remaining Budget: $$$$</p>
                     </div>
                 </div>
-                {/* <div className='budgetInfo'>
-                    <p>Remaining Budget: $$$$</p>
-                </div> */}
-                {/* </div> */}
                 </>
             ))}
         </ul>
