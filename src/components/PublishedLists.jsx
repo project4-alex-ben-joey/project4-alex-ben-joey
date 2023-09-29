@@ -28,7 +28,7 @@ const PublishedLists = () => {
             <Link className='linkHomeLink' to='/home'>Home</Link>
         </div>
         <h2>My Shows</h2>
-        <ul >
+        <ul>
             {publishedLists.map((list) => (
                 <>
                 {/* <div className='flexContainer'> */}
@@ -57,16 +57,40 @@ const PublishedLists = () => {
                             {/* Date */}
                                 <p className='eventDate'>date: {list.concerts[concertId].dates.start.localDate}</p>
                             {/* Prices */}
-                                <p className='priceMin'>min price!</p>
-                                <p className='priceMax'>max price!</p>
-
+                                {list.concerts[concertId].priceRanges && list.concerts[concertId].priceRanges.length > 0 ? (
+                                <>
+                                    <p className='minPrice'>Min price: {list.concerts[concertId].priceRanges[0].min}</p>
+                                    <p className='maxPrice'>Max price: {list.concerts[concertId].priceRanges[0].max}</p>
+                                    
+                                </>
+                            ) : (
+                            <p>Price information not available</p>
+                            )}
                             </div>
                         </li>
                         </>
                     ))}
-                    <div className='budgetInfo'>
-                        <p>Remaining Budget: $$$$</p>
-                    </div>
+                        {list.concerts && (
+                            <>
+                                <p className='remainingBudget'>
+                                    Total Min Price: $
+                                    {list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
+                                        const minPrice =
+                                            list.concerts[concertId]?.priceRanges?.[0]?.min || 0;
+                                        return total + minPrice;
+                                    }, 0)}
+                                </p>
+                                <p className='remainingBudget'>
+                                    Total Max Price: $
+                                    {list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
+                                        const maxPrice =
+                                            list.concerts[concertId]?.priceRanges?.[0]?.max || 0;
+                                        return total + maxPrice;
+                                    }, 0)}
+                                </p>
+                            </>
+                        )}
+                    
                 </div>
                 </>
             ))}

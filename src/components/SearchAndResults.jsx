@@ -54,7 +54,6 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
         }).then((res) => {
         // Gather performer, dates, ticketprices, title of event, images, and location from the response
         setData(res.data._embedded.events);
-        console.log(res.data._embedded.events[0]._embedded.venues[0].name);
         //remove this console log eventually
         })
         .catch((error) => {

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Lists = ({ selectedList, lists, onRemoveConcert, onDeleteList, onPublishList }) => {
-    console.log('selected list', selectedList)
 
   return (
     <div>
@@ -10,7 +9,7 @@ const Lists = ({ selectedList, lists, onRemoveConcert, onDeleteList, onPublishLi
             <p>Selected List: {selectedList.name}</p>
             <p>Budget: {selectedList.budget}</p>
             <p>Concerts: </p>
-            <ul>
+            <ul className='test-alex'>
               {Object.keys(
                 selectedList.concerts || {}
                 ).map((concertId) => (
