@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.test-alex {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}

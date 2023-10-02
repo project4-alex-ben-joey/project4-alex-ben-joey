@@ -1,17 +1,21 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+#root{
+  padding: 0px;
 }
 
 a {
@@ -29,26 +33,29 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: visible;
 }
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
 button {
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #747bff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  /* border-color:#C0C8F0; */
+  background-color:#C0C8F0;
+  transition: 0.4s;
 }
 button:focus,
 button:focus-visible {
@@ -64,6 +71,513 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #C0C8F0;
   }
+}
+
+/* --------------------above is vite default----------------------- */
+
+/* ---------------------------styles------------------------------- */
+/* font-family: 'Maitree', serif;
+normal at weight 400
+bold at weight 700
+to be to be used  
+
+colors:
+#DBF0EF -- light teal
+#97DAE8 -- light blue
+#C0C8F0 -- light purple
+
+bonus colors:
+#F0D6C8 -- peach
+#B6D7A8 -- green */
+
+*{
+  font-family: 'Maitree', serif;
+  font-weight: 400;
+}
+
+/* ---------------------------styles------------------------------- */
+body{
+  background-color: #DBF0EF;
+}
+
+.upcomingShows{
+  min-width: 200px;
+}
+/* I reference this class down below again, just have it here for order importantance */
+
+ul {
+  margin: 0px;
+  margin-top: 10px;
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+  background-color: white;
+}
+
+p {
+  margin: 0px;
+}
+
+.results {
+  border: 2px solid black;
+  margin-bottom: 20px;
+  max-width: 80vw;
+}
+
+.eventName {
+  font-size: 25px;
+  font-weight: 700;
+  max-width: 440px;
+}
+
+.eventImg {
+/* look into constraining img to box */
+max-width: 100%;
+}
+
+.eventDate {
+  font-style: italic;
+}
+
+.minPrice {
+
+}
+
+.maxPrice {
+
+}
+
+.eventLocation {
+  font-weight: bold;
+  margin: 5px 0px 5px 0px;
+}
+
+.addToListButton{
+  padding: 0px 5px;
+  border: 1px solid black;
+  border-radius: none;
+  
+  background-color: #97DAE8;
+}
+
+.addToListButton:hover{
+  background-color: #747bff;
+  transition: 0.4s;
+}
+
+.makingButtonNextToIcon{
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+/* li.results{
+  min-height: 400px;
+} */
+
+.guitarIconDiv{
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0;
+  /* height: 30px; */
+  /* display: flex;
+  justify-content: center; */
+}
+
+.guitarIconDiv img{
+  width: 30px;
+}
+
+.flexSearchContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.inputText{
+  margin: 0 auto;
+}
+
+.orHighlite{
+  background-color:#C0C8F0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  
+/* not sure if i like with this
+border: 1px solid black; */
+}
+
+.orHighlite p{
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 auto;
+  font-weight: bold;
+}
+
+.section1 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin-top: 30px;
+}
+
+.upcomingShows {
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
+
+  margin-bottom: 5px;
+}
+
+.upcomingShows p{
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 32px;
+  font-weight:700;
+}
+
+/* Section 2 Styling */
+ul{
+  width: 50vw;
+}
+
+li {
+  display: flex;
+  width: 100%;
+}
+
+.results {
+  min-width: 700px;
+}
+
+.imgContainer {
+  align-items: left;
+  width: 33%;
+  margin: 10px;
+
+  min-width: 260px;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+}
+
+.concertInfo{
+  text-align: left;
+}
+
+li {
+  position: relative;
+  /* setting this so that i can position:absolute the eventdate below */
+}
+
+.eventContainer {
+  border: 1px solid black;
+  background-color: #C0C8F0;
+  max-width: 100px;
+
+  /* moving the eventdate to key position */
+  position: absolute;
+  top: 20px;
+  right: -16px;
+
+  text-align: left;
+}
+
+.eventDate {
+  margin: 0px;
+  padding: 2px;
+}
+
+.logoStart {
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.logoStart:hover{
+  /* background-color: yellow; */
+}
+
+.logoImg{
+  /* object-fit: contain; */
+}
+
+
+/* these are for mini logo only! */
+.test-logo {
+  /* width: 50%; */
+  /* height: 5vh; */
+  display: flex;
+  justify-content: flex-start;
+  position: fixed;
+  top: -50px;
+  left: 10px;
+}
+
+.test-logo img{
+  width: 200px;
+  height: 200px;
+}
+
+
+
+
+/***************** list creation form ************************/
+.SavedListsBOX {
+  /* display: flex; */
+  border: black solid 3px;
+  /* justify-content: flex-end; */
+
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  
+  max-width: 300px;
+}
+
+.selectAList-li{
+  border: 1px solid black;
+  max-width: fit-content;
+  text-overflow: wrap;
+  margin-bottom: 5px;
+}
+
+.listCreationForm{
+  /* border: 1px solid red; */
+  padding: 5px;
+
+  /* I just commented this code out since it was affected the upcoming shows section
+    I'm pretty sure that the publishedListsDiv is wrapping the the entire site as opposed to the list curently selected */
+}
+
+.PLForm{
+  
+}
+
+.PLBudget{
+  margin:0 5px;
+}
+
+.PLButton{
+  padding: 0px 5px;
+  border: 1px solid black;
+  border-radius: none;
+}
+
+.PLButton:hover{
+  background-color: #747bff;
+  transition: 0.4s;
+}
+
+
+
+select{
+  margin: 15px 0px 5px 0px;
+  width: auto;
+  padding: 0px 5px 0px 5px;
+  font-size: 16px;
+  border: 1px solid black;
+  height: 34px;
+  appearance: none;
+
+  background-color:#C0C8F0;
+  font-weight: 500;
+}
+
+select:hover{
+  background-color: #747bff;
+  transition: 0.4s;
+  /* change color later 
+  nevermind currently like this*/
+}
+
+
+
+
+/*  Pub Lists Buttons -- ADD or DELETE*/
+.deleteListButton, .publishListButton{
+  border: 1px solid black;
+  }
+  
+  .publishListButton:hover{
+    background-color:#25cd52;
+    transition: 0.4s;
+  }
+  
+  .removeButton  {
+      /* border-radius: 8px; */
+      padding: 0px 5px;
+      border: 1px solid black;
+      border-radius: none;
+    }
+    
+    .removeButton:hover, .deleteListButton:hover {
+      /* border-color:#C0C8F0; */
+      background-color:#cd2525;
+      transition: 0.4s;
+    }
+/* 
+might need for formatting title of published lists after
+
+.upcomingShows {
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
+
+  margin-bottom: 5px;
+}
+
+.upcomingShows p{
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 32px;
+  font-weight:700;
+}
+
+*/
+
+.publishedListsLink{
+  text-decoration: underline;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background-color: #C0C8F0;
+  color:black;
+  
+  padding: 0px 5px;
+  border: 1px solid black;
+  border-radius: none;
+
+  box-shadow: 5px 5px 2px 1px black;
+}
+
+.publishedListsLink:hover{
+  background-color: #535bf2;
+  color:black;
+  transition: 0.4s;
+}
+/**********  Published Lists****** */
+.linkHome {
+  background-color:#C0C8F0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  /* text-align: center; */
+  /* margin-left: 30px;
+  margin-right: 30px; */
+  margin: 0 auto;
+  border: 1px solid black;
+
+  position: fixed;
+  top: 5px;
+  left: 5px;
+}
+
+.linkHome:hover{
+  background-color: #535bf2;
+  transition: 0.4s;
+}
+
+.linkHomeLink{
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 auto;
+  font-weight: bold;
+  color: black;
+}
+
+.linkHomeLink:hover{
+  color: rgb(246, 246, 8);
+}
+
+
+
+.publishedLists{
+  /* border: 4px dotted red; */
+}
+
+/* "My Shows - Title */
+.publishedLists h2{
+  border: 1px solid black;
+  background-color: #97DAE8;
+  text-decoration: underline;
+  
+  text-align: left;
+  font-weight: 700;
+
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.publishedLists h3{
+  margin-top: 18px;
+  margin-bottom: 5px;
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.publishedLists p{
+
+}
+
+.publishedLists img{
+
+}
+
+.eachBudgetContainer{
+  /* border: 1px solid red; */
+  position: relative;
+  text-align: left;
+}
+
+.budgetInfo{
+  border: 1px solid black;
+  position: absolute;
+  right: -140px;
+  bottom: -7px;
+
+
+  background-color: #97DAE8;
+}
+
+.flexContainer{
+  display: flex;
+  justify-content: center;
+}
+
+/* *{
+  z-index: 1;
+} */
+
+.test-alex {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
 }
