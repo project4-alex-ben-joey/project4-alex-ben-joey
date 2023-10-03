@@ -1,9 +1,8 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to our finale project for Juno College.  This is a team project where we were tasked with making an app for a client to search for upcoming concerts and save those lists with budgeting features so they can keep track of their love of music for the next upcoming year or so.
 
-Currently, two official plugins are available:
+Link to website:  
+https://spontaneous-snickerdoodle-b2570b.netlify.app/home
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 "# project4-alex-ben-joey" 
