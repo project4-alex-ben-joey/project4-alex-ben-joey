@@ -74,7 +74,7 @@ const PublishedLists = () => {
                             <>
                             <div className='remainingBudgetContainer'>
                                 <p className='remainingBudgetMin'>
-                                    Total Min Price: $
+                                    Budget Remainig (Min Price Tickets): $
                                     {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const minPrice =
                                             list.concerts[concertId]?.priceRanges?.[0]?.min || 0;
@@ -82,7 +82,7 @@ const PublishedLists = () => {
                                     }, 0)).toFixed(2)}
                                 </p>
                                 <p className='remainingBudgetMax'>
-                                    Total Max Price: $
+                                    Budget Remaining (Max Price Tickets): $
                                     {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const maxPrice =
                                             list.concerts[concertId]?.priceRanges?.[0]?.max || 0;

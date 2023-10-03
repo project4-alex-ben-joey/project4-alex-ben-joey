@@ -46,7 +46,6 @@ function App() {
     }).then((res) => {
       // Gather performer, dates, ticketprices, title of event, images, and location from the response
       setData(res.data._embedded.events);
-      console.log(res.data._embedded.events[0]._embedded.venues[0].name);
       //remove this console log eventually
     })
     .catch((error) => {
@@ -91,7 +90,6 @@ function App() {
 
   const initiateSearch = (selectedDate) => {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
-    console.log(selectedDate)
     const params = {
       apikey: apiKey,
       classificationName: 'Music',
@@ -111,7 +109,6 @@ function App() {
     })
       .then((res) => {
         setData(res.data._embedded.events);
-        console.log(res.data._embedded.events[0]._embedded.venues[0].name);
       })
       .catch((error) => {
         console.error('Error getting that date information', error);
@@ -137,7 +134,6 @@ function App() {
       const newListRef = push(listRef, listNameAndBudget);
       const listId = newListRef.key; // Get the generated list ID
       setListId(listId)
-      console.log('Successful push of:', listNameAndBudget);
       setListName('');
       setBudget('');
 
@@ -156,7 +152,7 @@ function App() {
   const addConcertsToFirebase = (listId, events) => {
       // Check if the event already exists in the selected concerts
     if (selectedConcerts[events.id]) {
-      console.log(`Concert ${events.name} is already in list`)
+      // 
     }
 
     // Add selected concerts to Firebase under the same listId
@@ -166,7 +162,6 @@ function App() {
 
     try {
       push(concertsRef, events);
-      console.log('Success', events);
     } catch (err) {
       console.error('Error', err);
     }
@@ -186,7 +181,7 @@ function App() {
 
       addConcertsToFirebase(listId, event);
     } else {
-      console.log(`Concert ${event.name} is already in list`)
+      // 
     }
   };
 
@@ -245,7 +240,6 @@ function App() {
       // try to set the new updated concerts to the firebase database else catch error
       try {
         set(concertsRef, updatedConcerts);
-        console.log(`Removed concert with ID ${concertId} from the list`);
       } catch (err) {
         console.error('Error removing concert:', err);
       }
@@ -261,7 +255,6 @@ function App() {
       // try to remove the list, if not possible console.error
       try {
         remove(listRef);
-        console.log(`Deleted list with ID ${listId} and associated concerts`);
         setListId('');
       } catch (err) {
         console.error('Error deleting list:', err);
@@ -290,7 +283,6 @@ function App() {
     })
   }
 
-  console.log(selectedConcerts);
 
   return (
     <>

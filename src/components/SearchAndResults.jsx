@@ -9,8 +9,6 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
     const [data, setData] = useState(null);
     const [iconVisible, setIconVisible] = useState({});
     const [addToListClicked, setAddToListClicked] = useState({});
-    // leaving in purposefully for testing purposes
-    console.log("this is list id", listId);
 
     handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value)
@@ -80,7 +78,6 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
         })
         .then((res) => {
             setData(res.data._embedded.events);
-            console.log(res.data._embedded.events[0]._embedded.venues[0].name);
         })
         .catch((error) => {
             console.error('Error getting that date information', error);

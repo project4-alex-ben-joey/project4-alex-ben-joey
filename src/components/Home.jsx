@@ -83,7 +83,6 @@ const Home = () => {
 
   const initiateSearch = (selectedDate) => {
     const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
-    console.log(selectedDate)
     const params = {
       apikey: apiKey,
       classificationName: 'Music',
@@ -103,7 +102,6 @@ const Home = () => {
     })
       .then((res) => {
         setData(res.data._embedded.events);
-        console.log(res.data._embedded.events[0]._embedded.venues[0].name);
       })
       .catch((error) => {
         console.error('Error getting that date information', error);
@@ -129,7 +127,6 @@ const Home = () => {
       const newListRef = push(listRef, listNameAndBudget);
       const listId = newListRef.key; // Get the generated list ID
       setListId(listId)
-      console.log('Successful push of:', listNameAndBudget);
       setListName('');
       setBudget('');
 
@@ -147,7 +144,7 @@ const Home = () => {
 const addConcertsToFirebase = (listId, events) => {
   // Check if the event already exists in the selected concerts
   if (selectedConcerts[events.id]) {
-    console.log(`Concert ${events.name} is already in list`);
+    // 
   }
 
   // Include the iconVisible property when adding to Firebase
@@ -162,7 +159,6 @@ const addConcertsToFirebase = (listId, events) => {
 
   try {
     push(concertsRef, concertWithIconVisible);
-    console.log('Success', concertWithIconVisible);
   } catch (err) {
     console.error('Error', err);
   }
@@ -182,7 +178,7 @@ const addConcertsToFirebase = (listId, events) => {
 
       addConcertsToFirebase(listId, event);
     } else {
-      console.log(`Concert ${event.name} is already in list`)
+      // 
     }
   };
 
@@ -241,7 +237,6 @@ const addConcertsToFirebase = (listId, events) => {
       // try to set the new updated concerts to the firebase database else catch error
       try {
         set(concertsRef, updatedConcerts);
-        console.log(`Removed concert with ID ${concertId} from the list`);
       } catch (err) {
         console.error('Error removing concert:', err);
       }
@@ -257,7 +252,6 @@ const addConcertsToFirebase = (listId, events) => {
       // try to remove the list, if not possible console.error
       try {
         remove(listRef);
-        console.log(`Deleted list with ID ${listId} and associated concerts`);
         setListId('');
       } catch (err) {
         console.error('Error deleting list:', err);
