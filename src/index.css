@@ -347,21 +347,36 @@ li {
 /***************** list creation form ************************/
 .SavedListsBOX {
   /* display: flex; */
-  border: black solid 3px;
+  border: black solid 1px;
   /* justify-content: flex-end; */
+  padding:5px;
 
   position: fixed;
   top: 5px;
   right: 5px;
   
   max-width: 300px;
+  background-color: #DBF0EF;
+}
+
+.SavedListsBOX p:first-of-type {
+  text-decoration: underline;
+}
+
+.SavedListsBOX p:nth-of-type(3) {
+  text-align: left;
+  margin-bottom: -8px;
 }
 
 .selectAList-li{
   border: 1px solid black;
-  max-width: fit-content;
+  /* max-width: fit-content; */
   text-overflow: wrap;
   margin-bottom: 5px;
+  display:flex;
+  justify-content: space-between;
+  text-align: left;
+  background-color: white;
 }
 
 .listCreationForm{
@@ -392,7 +407,6 @@ li {
 }
 
 
-
 select{
   margin: 15px 0px 5px 0px;
   width: auto;
@@ -413,9 +427,6 @@ select:hover{
   nevermind currently like this*/
 }
 
-
-
-
 /*  Pub Lists Buttons -- ADD or DELETE*/
 .deleteListButton, .publishListButton{
   border: 1px solid black;
@@ -429,7 +440,7 @@ select:hover{
   .removeButton  {
       /* border-radius: 8px; */
       padding: 0px 5px;
-      border: 1px solid black;
+      border-left: 1px solid black;
       border-radius: none;
     }
     

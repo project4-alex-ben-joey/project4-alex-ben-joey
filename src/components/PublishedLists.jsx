@@ -55,12 +55,12 @@ const PublishedLists = () => {
                             {/* Location */}
                                 <p className='eventLocation'>location: {list.concerts[concertId]._embedded.venues[0].name}</p>
                             {/* Date */}
-                                <p className='eventDate'>date: {list.concerts[concertId].dates.start.localDate}</p>
+                                <p className='eventDate'>Date: {list.concerts[concertId].dates.start.localDate}</p>
                             {/* Prices */}
                                 {list.concerts[concertId].priceRanges && list.concerts[concertId].priceRanges.length > 0 ? (
                                 <>
-                                    <p className='minPrice'>Min price: {list.concerts[concertId].priceRanges[0].min}</p>
-                                    <p className='maxPrice'>Max price: {list.concerts[concertId].priceRanges[0].max}</p>
+                                    <p className='minPrice'>Min price: ${(list.concerts[concertId].priceRanges[0].min).toFixed(2)}</p>
+                                    <p className='maxPrice'>Max price: ${(list.concerts[concertId].priceRanges[0].max).toFixed(2)}</p>
                                     
                                 </>
                             ) : (
@@ -74,19 +74,19 @@ const PublishedLists = () => {
                             <>
                                 <p className='remainingBudget'>
                                     Total Min Price: $
-                                    {list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
+                                    {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const minPrice =
                                             list.concerts[concertId]?.priceRanges?.[0]?.min || 0;
                                         return total + minPrice;
-                                    }, 0)}
+                                    }, 0)).toFixed(2)}
                                 </p>
                                 <p className='remainingBudget'>
                                     Total Max Price: $
-                                    {list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
+                                    {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const maxPrice =
                                             list.concerts[concertId]?.priceRanges?.[0]?.max || 0;
                                         return total + maxPrice;
-                                    }, 0)}
+                                    }, 0)).toFixed(2)}
                                 </p>
                             </>
                         )}
