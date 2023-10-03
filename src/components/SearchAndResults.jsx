@@ -7,10 +7,9 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
     const [searchQuery, setSearchQuery] = useState('');
     const [dateQuery, setDateQuery] = useState('');
     const [data, setData] = useState(null);
-    // TESTING BEGINSsssssssssssssssssssssssss
     const [iconVisible, setIconVisible] = useState({});
     const [addToListClicked, setAddToListClicked] = useState({});
-
+    // leaving in purposefully for testing purposes
     console.log("this is list id", listId);
 
     handleSearchInputChange = (e) => {
@@ -54,7 +53,6 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
         }).then((res) => {
         // Gather performer, dates, ticketprices, title of event, images, and location from the response
         setData(res.data._embedded.events);
-        //remove this console log eventually
         })
         .catch((error) => {
         console.error('error getting data', error);
@@ -63,7 +61,6 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
 
     initiateSearch = (selectedDate) => {
         const apiKey = `72U6GAMkp0CtJ8AT1AfsY8vvPRZZZBUk`;
-        console.log(selectedDate)
         const params = {
         apikey: apiKey,
         classificationName: 'Music',
@@ -92,7 +89,7 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
 
   return (
     <div>
-        <div className='wholePage'>
+        <div className='wholeApp'>
         {/* rename this class, its only the app not the body */}
         {/* Mapping over the data array and checking to see how to get all the info */}
         <div className='section1'>
@@ -118,11 +115,8 @@ const SearchAndResults = ({ handleOnAdd, handleSearchInputChange, handleDateInpu
               value={dateQuery}
               onChange={handleDateInputChange}
             />
-            
-            {/* <button onClick={handleDateSearch}>Search Date</button> */}
           </div>
         </div>
-        {/* fix input / needs to link to date data */}
 
         {data !== null && (
         <ul className='section2'>

@@ -9,7 +9,7 @@ const Lists = ({ selectedList, lists, onRemoveConcert, onDeleteList, onPublishLi
             <p>Selected List: {selectedList.name}</p>
             <p>Budget: {selectedList.budget}</p>
             <p>Concerts: </p>
-            <ul className='test-alex'>
+            <ul className='selectedListMenu'>
               {Object.keys(
                 selectedList.concerts || {}
                 ).map((concertId) => (

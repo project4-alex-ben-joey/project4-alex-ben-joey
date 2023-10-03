@@ -288,7 +288,7 @@ const addConcertsToFirebase = (listId, events) => {
 
   return (
     <>
-      <div className='test-logo'>
+      <div className='nav-logo'>
         <Logo />
       </div>
 

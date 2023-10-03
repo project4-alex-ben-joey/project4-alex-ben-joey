@@ -53,7 +53,7 @@ const PublishedLists = () => {
                                 <p className='eventName'>{list.concerts[concertId].name}</p>
                                 
                             {/* Location */}
-                                <p className='eventLocation'>location: {list.concerts[concertId]._embedded.venues[0].name}</p>
+                                <p className='eventLocation'>Location: {list.concerts[concertId]._embedded.venues[0].name}</p>
                             {/* Date */}
                                 <p className='eventDate'>Date: {list.concerts[concertId].dates.start.localDate}</p>
                             {/* Prices */}
@@ -64,7 +64,7 @@ const PublishedLists = () => {
                                     
                                 </>
                             ) : (
-                            <p>Price information not available</p>
+                            <p><i class="fa-solid fa-drum"></i>Price information not available at this time<i class="fa-solid fa-drum"></i></p>
                             )}
                             </div>
                         </li>
@@ -72,7 +72,8 @@ const PublishedLists = () => {
                     ))}
                         {list.concerts && (
                             <>
-                                <p className='remainingBudget'>
+                            <div className='remainingBudgetContainer'>
+                                <p className='remainingBudgetMin'>
                                     Total Min Price: $
                                     {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const minPrice =
@@ -80,7 +81,7 @@ const PublishedLists = () => {
                                         return total + minPrice;
                                     }, 0)).toFixed(2)}
                                 </p>
-                                <p className='remainingBudget'>
+                                <p className='remainingBudgetMax'>
                                     Total Max Price: $
                                     {(list.budget - Object.keys(list.concerts).reduce((total, concertId) => {
                                         const maxPrice =
@@ -88,6 +89,7 @@ const PublishedLists = () => {
                                         return total + maxPrice;
                                     }, 0)).toFixed(2)}
                                 </p>
+                            </div>
                             </>
                         )}
                     
